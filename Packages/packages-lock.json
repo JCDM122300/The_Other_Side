@@ -96,7 +96,7 @@
       "url": "https://packages.unity.com"
     },
     "com.unity.textmeshpro": {
-      "version": "3.0.6",
+      "version": "3.0.8",
       "depth": 0,
       "source": "registry",
       "dependencies": {
@@ -105,7 +105,7 @@
       "url": "https://packages.unity.com"
     },
     "com.unity.timeline": {
-      "version": "1.7.5",
+      "version": "1.7.6",
       "depth": 0,
       "source": "registry",
       "dependencies": {
@@ -126,7 +126,7 @@
       }
     },
     "com.unity.visualscripting": {
-      "version": "1.9.0",
+      "version": "1.9.2",
       "depth": 0,
       "source": "registry",
       "dependencies": {
