@@ -71,7 +71,7 @@ public class RaffleManager : MonoBehaviour
 
         GamePrintout.TxtPrintOut = $"You pulled {MonsterPulled.Name}\nStats:\nHP: {MonsterPulled.HP} | ATK Score: {MonsterPulled.ATKScore} | DEF: {MonsterPulled.DEFScore}";
 
-        P.AddMonsterToAllMonsters(MonsterPulled);
+        //P.AddMonsterToAllMonsters(MonsterPulled);
     }
 
     public void RaffleInput()

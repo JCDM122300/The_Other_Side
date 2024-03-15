@@ -62,16 +62,16 @@ public class TeamManager : MonoBehaviour, IInteractable
         {
             GamePrintout.TxtPrintOut = "Welcome to the Team Manager!";
 
-            if (P.AllMonsters.Count != 0)
-            {
-                GamePrintout.TxtPrintOut += "\nWhen you are happy with a monster hit L to lock in";
-                Manageable = true;
-            }
-            else
-            {
-                GamePrintout.TxtPrintOut += "\nYou don't have any extra Monsters and cannot manage your Team\nCome back when you have more Monsters";
-                Manageable = false;
-            }
+            //if (P.AllMonsters.Count != 0)
+            //{
+            //    GamePrintout.TxtPrintOut += "\nWhen you are happy with a monster hit L to lock in";
+            //    Manageable = true;
+            //}
+            //else
+            //{
+            //    GamePrintout.TxtPrintOut += "\nYou don't have any extra Monsters and cannot manage your Team\nCome back when you have more Monsters";
+            //    Manageable = false;
+            //}
         }
 
     }
@@ -127,9 +127,9 @@ public class TeamManager : MonoBehaviour, IInteractable
     {
         if (Swapping)
         {
-            P.Team[WhichTeamMember] = P.AllMonsters[WhichAllMonster];
-            P.AllMonsters.Remove(P.AllMonsters[WhichAllMonster]);
-            P.AllMonsters.Add(ReplacedMonster);
+            //P.Team[WhichTeamMember] = P.AllMonsters[WhichAllMonster];
+            //P.AllMonsters.Remove(P.AllMonsters[WhichAllMonster]);
+            //P.AllMonsters.Add(ReplacedMonster);
             P.CurrentMonster = P.Team[0];
         }
         else
@@ -158,20 +158,20 @@ public class TeamManager : MonoBehaviour, IInteractable
     void NextMonster()
     {
         WhichAllMonster++;
-        AllMonsterBounds = P.AllMonsters.Count - 1;
-        if (WhichAllMonster > AllMonsterBounds) { WhichAllMonster = 0; }
-        GamePrintout.TxtPrintOut = $"Swap Monster with {P.AllMonsters[WhichAllMonster].Name}?\n";
+        //AllMonsterBounds = P.AllMonsters.Count - 1;
+        //if (WhichAllMonster > AllMonsterBounds) { WhichAllMonster = 0; }
+        //GamePrintout.TxtPrintOut = $"Swap Monster with {P.AllMonsters[WhichAllMonster].Name}?\n";
         //TeamEditSprite = P.AllMonsters[WhichAllMonster].spriteTexture;
-        GamePrintout.TxtPrintOut += CompareStats();
+        //GamePrintout.TxtPrintOut += CompareStats();
     }
 
     string stats;
-    string CompareStats()
-    {
-        stats = $"\nCurrent Stats\nHP: {P.Team[WhichTeamMember].HP}/{P.Team[WhichTeamMember].HPMax} | ATK: {P.Team[WhichTeamMember].ATKScore} | DEF: {P.Team[WhichTeamMember].DEFScore}\n";
-        stats += $"{P.AllMonsters[WhichAllMonster].Name}'s Stats\nHP: {P.AllMonsters[WhichAllMonster].HP}/{P.AllMonsters[WhichAllMonster].HPMax} | ATK: {P.AllMonsters[WhichAllMonster].ATKScore} | DEF: {P.AllMonsters[WhichAllMonster].DEFScore}\n";
-        return stats;
-    }
+    //string CompareStats()
+    //{
+    //    stats = $"\nCurrent Stats\nHP: {P.Team[WhichTeamMember].HP}/{P.Team[WhichTeamMember].HPMax} | ATK: {P.Team[WhichTeamMember].ATKScore} | DEF: {P.Team[WhichTeamMember].DEFScore}\n";
+    //    stats += $"{P.AllMonsters[WhichAllMonster].Name}'s Stats\nHP: {P.AllMonsters[WhichAllMonster].HP}/{P.AllMonsters[WhichAllMonster].HPMax} | ATK: {P.AllMonsters[WhichAllMonster].ATKScore} | DEF: {P.AllMonsters[WhichAllMonster].DEFScore}\n";
+    //    return stats;
+    //}
 
 }
 

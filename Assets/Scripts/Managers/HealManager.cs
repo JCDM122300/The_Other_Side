@@ -49,23 +49,23 @@ public class HealManager : MonoBehaviour
         {
             GamePrintout.TxtPrintOut = "Welcome to the Healing Station!\n";
 
-            NeedsHeal = P.GetDeadMonsterCount();
+            //NeedsHeal = P.GetDeadMonsterCount();
 
-            if (NeedsHeal == 0)
-            {
-                GamePrintout.TxtPrintOut += "You have 0 Monsters that need healing";
-            }
-            else
-            {
-                if (P.Coins >= HealCost)//Can heal at least one Monster
-                {
-                    PickWhichToHeal();
-                }
-                else
-                {
-                    GamePrintout.TxtPrintOut += $"You only have {P.Coins} Coins\nYou need {HealCost} Coins to heal a Monster";
-                }
-            }
+            //if (NeedsHeal == 0)
+            //{
+            //    GamePrintout.TxtPrintOut += "You have 0 Monsters that need healing";
+            //}
+            //else
+            //{
+            //    if (P.Coins >= HealCost)//Can heal at least one Monster
+            //    {
+            //        PickWhichToHeal();
+            //    }
+            //    else
+            //    {
+            //        GamePrintout.TxtPrintOut += $"You only have {P.Coins} Coins\nYou need {HealCost} Coins to heal a Monster";
+            //    }
+            //}
         }
 
     }
@@ -74,9 +74,9 @@ public class HealManager : MonoBehaviour
     {
         P.Coins -= HealCost;
 
-        P.DeadMonsters.Remove(c);//Remove the first monster from DeadMonsters
+        //P.DeadMonsters.Remove(c);//Remove the first monster from DeadMonsters
         HealedMonster = c;//Set it locally
-        P.AllMonsters.Add(HealedMonster);//Add to All Monsters
+        //P.AllMonsters.Add(HealedMonster);//Add to All Monsters
         GamePrintout.TxtPrintOut = $"{HealedMonster.Name} has been Healed!\nThey are now back in your colection\nE: Exit";
         MonsterHealed = true;
     }
@@ -88,13 +88,13 @@ public class HealManager : MonoBehaviour
         {
             WhichMonster = 0;
             //HealedMonsterSprite = P.DeadMonsters[0].spriteTexture;
-            GamePrintout.TxtPrintOut += $"Only {P.DeadMonsters[WhichMonster].Name} needs healing\n{P.DeadMonsters[WhichMonster].DisplayStats()}";
+            //GamePrintout.TxtPrintOut += $"Only {P.DeadMonsters[WhichMonster].Name} needs healing\n{P.DeadMonsters[WhichMonster].DisplayStats()}";
         }
         else
         {
             if (WhichMonster > NeedsHeal - 1) { WhichMonster = 0; }//Cycle Through
             //HealedMonsterSprite = P.DeadMonsters[WhichMonster].spriteTexture;
-            GamePrintout.TxtPrintOut += $"Would you like to heal {P.DeadMonsters[WhichMonster].Name}\n{P.DeadMonsters[WhichMonster].DisplayStats()}";
+            //GamePrintout.TxtPrintOut += $"Would you like to heal {P.DeadMonsters[WhichMonster].Name}\n{P.DeadMonsters[WhichMonster].DisplayStats()}";
         }
 
     }

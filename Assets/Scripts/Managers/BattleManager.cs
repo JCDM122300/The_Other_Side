@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Drawing;
 using UnityEngine;
 using UnityEngine.TextCore.Text;
+using UnityEngine.UIElements;
 
 public enum BattleState { Playing, Won, Lost, Forfit, Paused }
 
@@ -45,12 +46,23 @@ public class BattleManager : MonoBehaviour
 
     int margin = 50;
 
+    [SerializeField] Slider PlayerHealth;
+    [SerializeField] Slider EnemyHealth;
+
+    [SerializeField] int currentPlayerHealth;
+    [SerializeField] int maxPlayerHealth;
+
+    [SerializeField] int currentEnemyHealth;
+    [SerializeField] int maxEnemyHealth;
+
     public BattleManager()
     {
-        P = GetComponent<Player>();
-        E = GetComponent<Enemy>();
+        P = new Player();
+        E = new Enemy();
+        //P = GetComponent<Player>();
+        //E = GetComponent<Enemy>();
 
-        this.BattleState = BattleState.Playing;
+        //this.BattleState = BattleState.Playing;
         //BattleElement = Color.White;
 
         LoadBattleEvelemts();
@@ -60,7 +72,7 @@ public class BattleManager : MonoBehaviour
     void Start()
     {
         LoadBattleEvelemts();
-        P.CurrentMonster = P.Team[0];
+        //P.CurrentMonster = P.Team[0];
     }
 
     // Update is called once per frame
@@ -87,333 +99,338 @@ public class BattleManager : MonoBehaviour
     }
 
 
-
-    public bool Won, BattleOver, Paused;
-    public void CheckBattleState()
+    public void Fight(Creature C)
     {
-        switch (BattleState)
-        {
-            case BattleState.Playing:
-                BattleOver = false;
-                break;
-            case BattleState.Won:
-                Won = true;
-                BattleOver = true;
-                break;
-            case BattleState.Lost:
-                Won = false;
-                BattleOver = true;
-                break;
-            case BattleState.Forfit:
-                Won = false;
-                BattleOver = true;
-                break;
-            case BattleState.Paused:
-                Paused = true;
-                break;
-        }
-    }
-
-    string results;
-    public string BattleResults()
-    {
-        LockedIn = false;
-        if (BattleState == BattleState.Won)
-        {
-            results = $"You defeated Enemy {E.Name}\nYou can now progress to the next Round!";
-            results += $"\n{CheckCoinsGained()}";
-        }
-
-        if (BattleState == BattleState.Lost)
-        {
-            results = $"Enemy {E.Name} defeated you!\nTo progress to the next Round you must defeat the Enemy!";
-            results += $"\n{CheckCoinsLost()}";
-        }
-
-        if (BattleState == BattleState.Forfit)
-        {
-            if (PlayerDid) { results = "You ran before defeating the Enemy\nTo progress to the next Round you must defeat the Enemy!"; }
-            if (!PlayerDid) { results = "All of the Enemy's Monsters ran before you could defeat them\nTo progress to the next Round you must defeat the Enemy!"; }
-        }
-
-        return results;
+        P.Attack(P.ATKScore, C.DEFScore);
     }
 
 
-    void CallPause()
-    {
-        if (!BattleOver) { GamePrintout.TxtPrintOut += $"\n\nPress Space to contine..."; }
-    }
+    //public bool Won, BattleOver, Paused;
+    //public void CheckBattleState()
+    //{
+    //    switch (BattleState)
+    //    {
+    //        case BattleState.Playing:
+    //            BattleOver = false;
+    //            break;
+    //        case BattleState.Won:
+    //            Won = true;
+    //            BattleOver = true;
+    //            break;
+    //        case BattleState.Lost:
+    //            Won = false;
+    //            BattleOver = true;
+    //            break;
+    //        case BattleState.Forfit:
+    //            Won = false;
+    //            BattleOver = true;
+    //            break;
+    //        case BattleState.Paused:
+    //            Paused = true;
+    //            break;
+    //    }
+    //}
 
-    #region Turn
-    public bool TurnOver = false;
-    public void FullTurn(bool Attack)
-    {
-        MoveMade = true;
-        if (!TurnOver)
-        {
-            BattleState = BattleState.Playing;
+    //string results;
+    //public string BattleResults()
+    //{
+    //    LockedIn = false;
+    //    if (BattleState == BattleState.Won)
+    //    {
+    //        results = $"You defeated Enemy {E.Name}\nYou can now progress to the next Round!";
+    //        results += $"\n{CheckCoinsGained()}";
+    //    }
 
-            CheckLife();
+    //    if (BattleState == BattleState.Lost)
+    //    {
+    //        results = $"Enemy {E.Name} defeated you!\nTo progress to the next Round you must defeat the Enemy!";
+    //        results += $"\n{CheckCoinsLost()}";
+    //    }
 
-            if (Attack)//If the player desides to attack
-            {
-                GamePrintout.TxtPrintOut = "You have decided to Attack!";
-                PlayerTurn();
-            }
-            else
-            {
-                GamePrintout.TxtPrintOut = "You have decided to Run!";
-                Run(P);
-            }
+    //    if (BattleState == BattleState.Forfit)
+    //    {
+    //        if (PlayerDid) { results = "You ran before defeating the Enemy\nTo progress to the next Round you must defeat the Enemy!"; }
+    //        if (!PlayerDid) { results = "All of the Enemy's Monsters ran before you could defeat them\nTo progress to the next Round you must defeat the Enemy!"; }
+    //    }
 
-            if (BattleState == BattleState.Playing)
-            {
-                EnemyTurn();
-                TurnOver = true;
-            }
-
-        }
-
-        if (TurnOver == true && BattleState == BattleState.Playing)
-        {
-            CallPause();
-            BattleState = BattleState.Paused;
-        }
-
-    }
-
-
-    double Damage;
-    bool PlayerHasDamaged = false;
-    bool EnemyHasDamaged = false;
-    public void PlayerTurn()
-    {
-        Damage = P.CurrentMonster.Attack(P.CurrentMonster.ATKScore, E.CurrentMonster.DEFScore);
-
-        DamageMonster(E.CurrentMonster, (int)Damage); ;
-        GamePrintout.TxtPrintOut += $"\n{P.CurrentMonster.Name} Damaged {E.CurrentMonster.Name} for {(int)Damage} HP points\n{E.CurrentMonster.Name}'s HP is now at {E.CurrentMonster.HP}";
-        if (E.CurrentMonster.HP == 0)
-        {
-            BattleState = BattleState.Won;
-            TurnOver = true;
-        }
-
-    }
+    //    return results;
+    //}
 
 
-    public void EnemyTurn()
-    {
-        if (!E.CurrentMonster.Dead)
-        {
-            if (!CheckProbablilityOfLoss())
-            {
-                if (BattleState == BattleState.Playing)
-                {
-                    Damage = E.CurrentMonster.Attack(E.CurrentMonster.ATKScore, P.CurrentMonster.DEFScore);
-                    DamageMonster(P.CurrentMonster, (int)Damage);
-                    GamePrintout.TxtPrintOut += $"\n{E.CurrentMonster.Name} Damaged {P.CurrentMonster.Name} for {(int)Damage} HP points\n{P.CurrentMonster.Name}'s HP is now at {P.CurrentMonster.HP}";
-                }
-            }
-        }
-        if (E.CurrentMonster.Dead)
-        { GamePrintout.TxtPrintOut += $"\n{E.Name}'s Monster has been Defeated!"; }
+    //void CallPause()
+    //{
+    //    if (!BattleOver) { GamePrintout.TxtPrintOut += $"\n\nPress Space to contine..."; }
+    //}
 
-        GamePrintout.TxtPrintOut += "\nTurn Completed";
-        TurnOver = true;
+    //#region Turn
+    //public bool TurnOver = false;
+    //public void FullTurn(bool Attack)
+    //{
+    //    MoveMade = true;
+    //    if (!TurnOver)
+    //    {
+    //        BattleState = BattleState.Playing;
 
-    }
+    //        CheckLife();
 
-    public void TurnCompleted()
-    {
-        PlayerHasDamaged = EnemyHasDamaged = false;
-        Turn++;
-        GamePrintout.TxtPrintOut = "";
+    //        if (Attack)//If the player desides to attack
+    //        {
+    //            GamePrintout.TxtPrintOut = "You have decided to Attack!";
+    //            PlayerTurn();
+    //        }
+    //        else
+    //        {
+    //            GamePrintout.TxtPrintOut = "You have decided to Run!";
+    //            Run(P);
+    //        }
 
-        //Check Team Status
-        if (!CheckMonsterStatus(P))
-        {
-            GamePrintout.TxtPrintOut += "\nAll of your Monsters are still standing!";
-        }
-        else
-        {
-            if (P.Team.Count != 0)
-            {
-                GamePrintout.TxtPrintOut += $"\n{P.Team[0].Name} is now up";
-                P.CurrentMonster = P.Team[0];
-            }
-        }
+    //        if (BattleState == BattleState.Playing)
+    //        {
+    //            EnemyTurn();
+    //            TurnOver = true;
+    //        }
 
-        if (CheckMonsterStatus(E))
-        {
-            if (E.Team.Count != 0)
-            {
-                GamePrintout.TxtPrintOut += $"\n{E.Team[0].Name} is now up";
-                P.CurrentMonster = P.Team[0];
-            }
-        }
+    //    }
 
-        CheckLife();
-        if (BattleState == BattleState.Playing)
-        {
-            MoveMade = false;
-            TurnOver = false;
-            GamePrintout.TxtPrintOut += $"\n{E.Name} is still standing\nWhat's your next move?";
+    //    if (TurnOver == true && BattleState == BattleState.Playing)
+    //    {
+    //        CallPause();
+    //        BattleState = BattleState.Paused;
+    //    }
 
-        }
-    }
+    //}
 
 
+    //double Damage;
+    //bool PlayerHasDamaged = false;
+    //bool EnemyHasDamaged = false;
+    //public void PlayerTurn()
+    //{
+    //    Damage = P.CurrentMonster.Attack(P.CurrentMonster.ATKScore, E.CurrentMonster.DEFScore);
 
-    #endregion
-    int RemainingHp;
-    void DamageMonster(Creature WhichMonster, int Damage)
-    {
-        if (WhichMonster == E.CurrentMonster)//Player Attacking
-        {
-            if (!PlayerHasDamaged) { Damaging(WhichMonster, Damage); }
-            PlayerHasDamaged = true;
-        }
-        if (WhichMonster == P.CurrentMonster)//Enemy Attacking
-        {
-            if (!EnemyHasDamaged) { Damaging(WhichMonster, Damage); }
-            EnemyHasDamaged = true;
-        }
-    }
+    //    DamageMonster(E.CurrentMonster, (int)Damage); ;
+    //    GamePrintout.TxtPrintOut += $"\n{P.CurrentMonster.Name} Damaged {E.CurrentMonster.Name} for {(int)Damage} HP points\n{E.CurrentMonster.Name}'s HP is now at {E.CurrentMonster.HP}";
+    //    if (E.CurrentMonster.HP == 0)
+    //    {
+    //        BattleState = BattleState.Won;
+    //        TurnOver = true;
+    //    }
 
-    void Damaging(Creature WhichMonster, int Damage)
-    {
-        RemainingHp = WhichMonster.HP - Damage;
-        if (RemainingHp <= 0)
-        {
-            WhichMonster.HP = 0;
-            WhichMonster.Dead = true;
-        }
-        else { WhichMonster.HP -= Damage; }
-    }
+    //}
 
 
-    public void OptomizeEnemySwap()
-    {
-        if (GameDifficulty == GameDifficulty.Hard)
-        {
-            //allow the enemy to swap there monster for one that is better equipt at fighing the players monster
-        }
-    }
+    //public void EnemyTurn()
+    //{
+    //    if (!E.CurrentMonster.Dead)
+    //    {
+    //        if (!CheckProbablilityOfLoss())
+    //        {
+    //            if (BattleState == BattleState.Playing)
+    //            {
+    //                Damage = E.CurrentMonster.Attack(E.CurrentMonster.ATKScore, P.CurrentMonster.DEFScore);
+    //                DamageMonster(P.CurrentMonster, (int)Damage);
+    //                GamePrintout.TxtPrintOut += $"\n{E.CurrentMonster.Name} Damaged {P.CurrentMonster.Name} for {(int)Damage} HP points\n{P.CurrentMonster.Name}'s HP is now at {P.CurrentMonster.HP}";
+    //            }
+    //        }
+    //    }
+    //    if (E.CurrentMonster.Dead)
+    //    { GamePrintout.TxtPrintOut += $"\n{E.Name}'s Monster has been Defeated!"; }
 
-    bool LostMonster;
-    public bool CheckMonsterStatus(Character WhichCharacter)
-    {
+    //    GamePrintout.TxtPrintOut += "\nTurn Completed";
+    //    TurnOver = true;
 
-        LostMonster = false;
-        if (WhichCharacter.CurrentMonster.HP <= 0)
-        {
-            LostMonster = true;
-            GamePrintout.TxtPrintOut += $"\n{WhichCharacter.CurrentMonster.Name}'s Hp hit 0\nThey can no longer Battle";
-            WhichCharacter.Team.Remove(WhichCharacter.CurrentMonster);
-            if (WhichCharacter == P) { P.DeadMonsters.Add(P.CurrentMonster); }
+    //}
 
-        }
-        return LostMonster;
-    }
+    //public void TurnCompleted()
+    //{
+    //    PlayerHasDamaged = EnemyHasDamaged = false;
+    //    Turn++;
+    //    GamePrintout.TxtPrintOut = "";
 
-    #region Run
+    //    //Check Team Status
+    //    if (!CheckMonsterStatus(P))
+    //    {
+    //        GamePrintout.TxtPrintOut += "\nAll of your Monsters are still standing!";
+    //    }
+    //    else
+    //    {
+    //        if (P.Team.Count != 0)
+    //        {
+    //            GamePrintout.TxtPrintOut += $"\n{P.Team[0].Name} is now up";
+    //            P.CurrentMonster = P.Team[0];
+    //        }
+    //    }
 
-    int Decision;
-    public bool CheckProbablilityOfLoss()
-    {
-        if (E.Team.Count == 1)
-        {
-            if (P.CurrentMonster.ATKScore > E.CurrentMonster.HP)//if the enemy will lose on the next round
-            {
-                Decision = WillRun.Next(0, 100);
-                //Need to have the Enemy not forfit every time
-                if (Decision > 50)
-                {
-                    GamePrintout.TxtPrintOut += $"\nThe Enemy is attempting to Run!";
-                    //Attempt run
-                    Run(E);
-                    return true;
-                }
+    //    if (CheckMonsterStatus(E))
+    //    {
+    //        if (E.Team.Count != 0)
+    //        {
+    //            GamePrintout.TxtPrintOut += $"\n{E.Team[0].Name} is now up";
+    //            P.CurrentMonster = P.Team[0];
+    //        }
+    //    }
 
-            }
-        }
-        return false;
+    //    CheckLife();
+    //    if (BattleState == BattleState.Playing)
+    //    {
+    //        MoveMade = false;
+    //        TurnOver = false;
+    //        GamePrintout.TxtPrintOut += $"\n{E.Name} is still standing\nWhat's your next move?";
 
-    }
+    //    }
+    //}
 
 
-    int RunSucessRate;
-    public void Run(Character WhichCharacter)
-    {
-        RunSucessRate = RunAttempt.Next(100);
-        if (RunSucessRate <= 60)
-        {
-            RunSucess(WhichCharacter);
-        }
-        else
-        {
-            GamePrintout.TxtPrintOut += $"\nThe {WhichCharacter.CurrentMonster.Name} was unsucesfull in their Run attempt";
-        }
 
-    }
+    //#endregion
+    //int RemainingHp;
+    //void DamageMonster(Creature WhichMonster, int Damage)
+    //{
+    //    if (WhichMonster == E.CurrentMonster)//Player Attacking
+    //    {
+    //        if (!PlayerHasDamaged) { Damaging(WhichMonster, Damage); }
+    //        PlayerHasDamaged = true;
+    //    }
+    //    if (WhichMonster == P.CurrentMonster)//Enemy Attacking
+    //    {
+    //        if (!EnemyHasDamaged) { Damaging(WhichMonster, Damage); }
+    //        EnemyHasDamaged = true;
+    //    }
+    //}
 
-    public void RunSucess(Character WhichCharacter)
-    {
-        if (WhichCharacter == E)
-        {
-            PlayerDid = false;
-            EnemyMonsterAbandoned();
+    //void Damaging(Creature WhichMonster, int Damage)
+    //{
+    //    RemainingHp = WhichMonster.HP - Damage;
+    //    if (RemainingHp <= 0)
+    //    {
+    //        WhichMonster.HP = 0;
+    //        WhichMonster.Dead = true;
+    //    }
+    //    else { WhichMonster.HP -= Damage; }
+    //}
 
-        }
-        if (WhichCharacter == P)
-        {
-            GamePrintout.TxtPrintOut += $"\nYou sucessfully Ran";
-            PlayerDid = true;
-            TurnOver = true;
-            BattleState = BattleState.Forfit;
-        }
-    }
 
-    //The Enemy dose not run their monsters choose to abondon them to save themselves
-    void EnemyMonsterAbandoned()
-    {
-        GamePrintout.TxtPrintOut += $"\n{E.CurrentMonster.Name} abondomed {E.Name}";
-        E.Team.Remove(E.CurrentMonster);
-        if (E.Team.Count != 0)
-        {
-            E.CurrentMonster = E.Team[0];
-        }
-        else { BattleState = BattleState.Forfit; }
-    }
+    //public void OptomizeEnemySwap()
+    //{
+    //    if (GameDifficulty == GameDifficulty.Hard)
+    //    {
+    //        //allow the enemy to swap there monster for one that is better equipt at fighing the players monster
+    //    }
+    //}
 
-    #endregion
+    //bool LostMonster;
+    //public bool CheckMonsterStatus(Character WhichCharacter)
+    //{
 
-    int PlayerCombinedHP, EnemyCombinedHP;
-    public void CheckLife()
-    {
-        PlayerCombinedHP = P.CalculateTeamHP();
-        EnemyCombinedHP = E.CalculateTeamHP();
+    //    LostMonster = false;
+    //    if (WhichCharacter.CurrentMonster.HP <= 0)
+    //    {
+    //        LostMonster = true;
+    //        GamePrintout.TxtPrintOut += $"\n{WhichCharacter.CurrentMonster.Name}'s Hp hit 0\nThey can no longer Battle";
+    //        WhichCharacter.Team.Remove(WhichCharacter.CurrentMonster);
+    //        if (WhichCharacter == P) { P.DeadMonsters.Add(P.CurrentMonster); }
 
-        if (PlayerCombinedHP <= 0)
-        {
-            if (this.BattleState != BattleState.Forfit)
-            {
-                GamePrintout.TxtPrintOut += "\nAll of your Monsters are a 0 HP";
-                this.BattleState = BattleState.Lost;
-            }
+    //    }
+    //    return LostMonster;
+    //}
 
-        }
-        if (EnemyCombinedHP <= 0)
-        {
-            if (this.BattleState != BattleState.Forfit)
-            {
-                GamePrintout.TxtPrintOut += $"\nAll of {E.Name}'s Monsters are a 0 HP";
-                this.BattleState = BattleState.Won;
-            }
+    //#region Run
 
-        }
-    }
+    //int Decision;
+    //public bool CheckProbablilityOfLoss()
+    //{
+    //    if (E.Team.Count == 1)
+    //    {
+    //        if (P.CurrentMonster.ATKScore > E.CurrentMonster.HP)//if the enemy will lose on the next round
+    //        {
+    //            Decision = WillRun.Next(0, 100);
+    //            //Need to have the Enemy not forfit every time
+    //            if (Decision > 50)
+    //            {
+    //                GamePrintout.TxtPrintOut += $"\nThe Enemy is attempting to Run!";
+    //                //Attempt run
+    //                Run(E);
+    //                return true;
+    //            }
+
+    //        }
+    //    }
+    //    return false;
+
+    //}
+
+
+    //int RunSucessRate;
+    //public void Run(Character WhichCharacter)
+    //{
+    //    RunSucessRate = RunAttempt.Next(100);
+    //    if (RunSucessRate <= 60)
+    //    {
+    //        RunSucess(WhichCharacter);
+    //    }
+    //    else
+    //    {
+    //        GamePrintout.TxtPrintOut += $"\nThe {WhichCharacter.CurrentMonster.Name} was unsucesfull in their Run attempt";
+    //    }
+
+    //}
+
+    //public void RunSucess(Character WhichCharacter)
+    //{
+    //    if (WhichCharacter == E)
+    //    {
+    //        PlayerDid = false;
+    //        EnemyMonsterAbandoned();
+
+    //    }
+    //    if (WhichCharacter == P)
+    //    {
+    //        GamePrintout.TxtPrintOut += $"\nYou sucessfully Ran";
+    //        PlayerDid = true;
+    //        TurnOver = true;
+    //        BattleState = BattleState.Forfit;
+    //    }
+    //}
+
+    ////The Enemy dose not run their monsters choose to abondon them to save themselves
+    //void EnemyMonsterAbandoned()
+    //{
+    //    GamePrintout.TxtPrintOut += $"\n{E.CurrentMonster.Name} abondomed {E.Name}";
+    //    E.Team.Remove(E.CurrentMonster);
+    //    if (E.Team.Count != 0)
+    //    {
+    //        E.CurrentMonster = E.Team[0];
+    //    }
+    //    else { BattleState = BattleState.Forfit; }
+    //}
+
+    //#endregion
+
+    //int PlayerCombinedHP, EnemyCombinedHP;
+    //public void CheckLife()
+    //{
+    //    PlayerCombinedHP = P.CalculateTeamHP();
+    //    EnemyCombinedHP = E.CalculateTeamHP();
+
+    //    if (PlayerCombinedHP <= 0)
+    //    {
+    //        if (this.BattleState != BattleState.Forfit)
+    //        {
+    //            GamePrintout.TxtPrintOut += "\nAll of your Monsters are a 0 HP";
+    //            this.BattleState = BattleState.Lost;
+    //        }
+
+    //    }
+    //    if (EnemyCombinedHP <= 0)
+    //    {
+    //        if (this.BattleState != BattleState.Forfit)
+    //        {
+    //            GamePrintout.TxtPrintOut += $"\nAll of {E.Name}'s Monsters are a 0 HP";
+    //            this.BattleState = BattleState.Won;
+    //        }
+
+    //    }
+    //}
 
     #region Coins
 

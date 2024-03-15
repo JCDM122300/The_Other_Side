@@ -94,14 +94,14 @@ public class GameManager : MonoBehaviour, IInteractable
         Creature HealableMonster;
         HealableMonster = mm.Monsters[7];
         HealableMonster.GetStats(Round);
-        P.DeadMonsters.Add(HealableMonster);
+        //P.DeadMonsters.Add(HealableMonster);
 
         HealableMonster = mm.Monsters[12];
         HealableMonster.GetStats(Round);
-        P.DeadMonsters.Add(HealableMonster);
+        //P.DeadMonsters.Add(HealableMonster);
 
         //Team Manage
-        P.AllMonsters.Add(mm.Monsters[9]);
+        //P.AllMonsters.Add(mm.Monsters[9]);
 
         //Full Team
         Creature AddToTeam;
@@ -119,7 +119,7 @@ public class GameManager : MonoBehaviour, IInteractable
     {
         CheckGameMode();
         CheckGameState();
-        if (CurrentBattle != null) { CurrentBattle.CheckBattleState(); }
+        //if (CurrentBattle != null) { CurrentBattle.CheckBattleState(); }
         UpdateGameInfoTxt();
 
         //HandleInput(gameTime);
@@ -162,20 +162,20 @@ public class GameManager : MonoBehaviour, IInteractable
                 //BattleElement = Color.White;
                 //OutOfBattleElement = Color.Transparent;
 
-                if (CurrentBattle.BattleOver == true && CurrentBattle.TurnOver == true)
-                {
-                    GameMode = GameMode.OutBattle;
-                    GamePrintout.TxtPrintOut = CurrentBattle.BattleResults();
-                    //CurrentBattle.BattleElement = Color.Transparent;
+                //if (CurrentBattle.BattleOver == true && CurrentBattle.TurnOver == true)
+                //{
+                //    GameMode = GameMode.OutBattle;
+                //    GamePrintout.TxtPrintOut = CurrentBattle.BattleResults();
+                //    //CurrentBattle.BattleElement = Color.Transparent;
 
-                    if (CurrentBattle.Won)
-                    {
-                        if (Round + 1 != 7) { Round++; }
-                        else { GameState = GameState.Won; }
+                //    if (CurrentBattle.Won)
+                //    {
+                //        if (Round + 1 != 7) { Round++; }
+                //        else { GameState = GameState.Won; }
 
-                        CurrentBattle.Won = false;
-                    }
-                }
+                //        CurrentBattle.Won = false;
+                //    }
+                //}
 
                 break;
             case GameMode.OutBattle:
