@@ -14,7 +14,7 @@ public class Enemy : Character
         random = new System.Random();
         int WhichName = random.Next(0, EnemyNames.Length);
         this.Name = EnemyNames[WhichName];
-        this.CombindedATK = CalculateCombindedATK();
+        //this.CombindedATK = CalculateCombindedATK();
         this.Coins = 20;
     }
 

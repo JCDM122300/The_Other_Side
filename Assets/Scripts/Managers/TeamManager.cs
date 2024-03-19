@@ -118,9 +118,9 @@ public class TeamManager : MonoBehaviour, IInteractable
     #region Lock In
     void SaveReplacedMonster()
     {
-        if (WhichTeamMember == 0) { ReplacedMonster = P.Team[0]; }
-        if (WhichTeamMember == 1) { ReplacedMonster = P.Team[1]; }
-        if (WhichTeamMember == 2) { ReplacedMonster = P.Team[2]; }
+        //if (WhichTeamMember == 0) { ReplacedMonster = P.Team[0]; }
+        //if (WhichTeamMember == 1) { ReplacedMonster = P.Team[1]; }
+        //if (WhichTeamMember == 2) { ReplacedMonster = P.Team[2]; }
     }
 
     void LockMonsterIn()
@@ -130,7 +130,7 @@ public class TeamManager : MonoBehaviour, IInteractable
             //P.Team[WhichTeamMember] = P.AllMonsters[WhichAllMonster];
             //P.AllMonsters.Remove(P.AllMonsters[WhichAllMonster]);
             //P.AllMonsters.Add(ReplacedMonster);
-            P.CurrentMonster = P.Team[0];
+            //P.CurrentMonster = P.Team[0];
         }
         else
         {
@@ -144,7 +144,7 @@ public class TeamManager : MonoBehaviour, IInteractable
     void NextTeamMember()
     {
         WhichTeamMember++;
-        TeamBounds = P.Team.Count - 1;
+        //TeamBounds = P.Team.Count - 1;
         if (WhichTeamMember > TeamBounds)
         {
             WhichTeamMember = 0;

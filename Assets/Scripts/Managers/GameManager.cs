@@ -19,7 +19,7 @@ public class GameManager : MonoBehaviour, IInteractable
 
 
     public Player P;
-    public Enemy E;
+    public Creature C;
 
     //Text Draw Locations
     Vector2 RoundtxtLoc, CointxtLoc, P_TextLocation;
@@ -50,7 +50,7 @@ public class GameManager : MonoBehaviour, IInteractable
         GameState = GameState.Playing;
 
         P = new Player();
-        E = new Enemy();
+        C = new Creature();
 
 
         mm = GetComponent<MonsterManager>();
@@ -148,8 +148,8 @@ public class GameManager : MonoBehaviour, IInteractable
                     //mm.PickStarterElement = Color.Transparent;
                     GameMode = GameMode.OutBattle;
 
-                    P.CurrentMonster.GetStats(Round);
-                    E.CurrentMonster.GetStats(Round);
+                    P.GetStats(Round);
+                    C.GetStats(Round);
                 }
                 break;
             case GameMode.InBattle:
@@ -234,7 +234,7 @@ public class GameManager : MonoBehaviour, IInteractable
     bool CheckIfLost()
     {
         GameLost = false;
-        if (P.Team.Count == 0 && P.Coins < hm.HealCost) { GameLost = true; }
+        //if (P.Team.Count == 0 && P.Coins < hm.HealCost) { GameLost = true; }
         return GameLost;
     }
     #endregion
@@ -255,7 +255,7 @@ public class GameManager : MonoBehaviour, IInteractable
     void NewBattle()
     {
         if (Round != 1) { RandomEnemyMonster(); }
-        E.CalculateLevelAndCoins(Round);
+        //C.CalculateLevelAndCoins(Round);
         //P.CurrentMonster = P.Team[0];
         //CurrentBattle = new BattleManager(g, P, E);
     }
@@ -263,8 +263,8 @@ public class GameManager : MonoBehaviour, IInteractable
     void RandomEnemyMonster()
     {
         //if (rm == null) { rm = new RaffleManager(g, P, mm, Round); }
-        E.CurrentMonster = rm.PullFreeMonster(Round);
-        E.Team.Add(E.CurrentMonster);
+        //C.CurrentMonster = rm.PullFreeMonster(Round);
+        //C.Team.Add(C.CurrentMonster);
     }
 
 

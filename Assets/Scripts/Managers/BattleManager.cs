@@ -99,9 +99,10 @@ public class BattleManager : MonoBehaviour
     }
 
 
-    public void Fight(Creature C)
+    public double Fight(Player P, Creature C)
     {
-        P.Attack(P.ATKScore, C.DEFScore);
+        Debug.Log("Attack is called:");
+        return P.Attack(P.ATKScore, C.DEFScore);
     }
 
 

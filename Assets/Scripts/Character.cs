@@ -8,14 +8,7 @@ public class Character : MonoBehaviour
     public int Coins;//Player colects coins from Enemy
     public int Level;
 
-    public List<Creature> Team = new List<Creature>();
-
-    public int CombindedATK;
-    public int TeamHP;
-
     int Calculated;
-
-    public Creature CurrentMonster;
 
     // Start is called before the first frame update
     void Start()
@@ -29,32 +22,32 @@ public class Character : MonoBehaviour
         
     }
 
-    public int CalculateCombindedATK()
-    {
-        foreach (Creature monster in Team)
-        {
-            Calculated += monster.ATKScore;
-        }
+    //public int CalculateCombindedATK()
+    //{
+    //    foreach (Creature monster in Team)
+    //    {
+    //        Calculated += monster.ATKScore;
+    //    }
 
-        if (Team.Count == 0) { Calculated = 0; }
+    //    if (Team.Count == 0) { Calculated = 0; }
 
-        return Calculated;
-    }
+    //    return Calculated;
+    //}
 
-    public int CalculateTeamHP()
-    {
-        TeamHP = 0;
-        foreach (Creature monster in Team)
-        {
-            TeamHP += monster.HP;
-        }
+    //public int CalculateTeamHP()
+    //{
+    //    TeamHP = 0;
+    //    foreach (Creature monster in Team)
+    //    {
+    //        TeamHP += monster.HP;
+    //    }
 
-        return TeamHP;
-    }
+    //    return TeamHP;
+    //}
 
 
-    public void AddMonsterToTeam(Creature c)
-    {
-        this.Team.Add(c);
-    }
+    //public void AddMonsterToTeam(Creature c)
+    //{
+    //    this.Team.Add(c);
+    //}
 }

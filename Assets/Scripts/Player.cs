@@ -8,35 +8,24 @@ public class Player : Character
     [SerializeField] int StartingLevel = 1;
     [SerializeField] int StartingCoins = 25;
 
-    public string Name { get; set; }
-    public int HP { get; set; }
-    public int HPMax { get; set; }
-    public int ATKScore { get; set; }
-    public int DEFScore { get; set; }
+    public int HP;
+    public int HPMax;
+    public int ATKScore;
+    public int DEFScore;
 
     System.Random stats;
 
     public bool Dead;
 
     [SerializeField] int MinHP = 10;
-    [SerializeField] int MaxHP = 20;
+    [SerializeField] public int MaxHP = 20;
     [SerializeField] int MinATKScore = 5;
     [SerializeField] int MaxATKScore = 15;
     [SerializeField] int MinDEFScore = 5;
     [SerializeField] int MaxDEFScore = 15;
 
-
-    //public Team Team;
-
-    //public List<Creature> AllMonsters = new List<Creature>(); //All Monsters the have
-
-    //public List<Creature> DeadMonsters = new List<Creature>();//Can be healed for coins
-
-    // Start is called before the first frame update
     void Start()
     {
-        this.Name = name;
-        //this.CombindedATK = CalculateCombindedATK();
         this.Level = StartingLevel;
         this.Coins = StartingCoins;
     }

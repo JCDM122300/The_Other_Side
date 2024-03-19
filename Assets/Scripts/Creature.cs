@@ -4,11 +4,17 @@ using UnityEngine;
 
 public class Creature : MonoBehaviour, IAttack, IDefend
 {
-    public string Name { get; set; }
-    public int HP { get; set; }
-    public int HPMax { get; set; }
-    public int ATKScore { get; set; }
-    public int DEFScore { get; set; }
+    [SerializeField] public string Name;
+    [SerializeField] public int HP;
+    [SerializeField] public int HPMax;
+
+    [SerializeField] public int atkScore;
+    public int ATKScore { get { return atkScore; }
+    set { atkScore = value; } }
+    [SerializeField] public int defScore;
+    [SerializeField] public int DEFScore { get {return defScore; } 
+        set { defScore = value; } }
+
 
     System.Random stats;
 
