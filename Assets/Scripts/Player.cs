@@ -5,6 +5,13 @@ using UnityEngine;
 
 public class Player : Character
 {
+    //player movement 
+    private Rigidbody2D rb;
+    [SerializeField] private float speed;
+    [SerializeField] private float jumpPower;
+    private BoxCollider2D boxCollider;
+    private Animator anim; 
+    [SerializeField] private LayerMask groundLayer;
     [SerializeField] int StartingLevel = 1;
     [SerializeField] int StartingCoins = 25;
 
@@ -23,7 +30,59 @@ public class Player : Character
     [SerializeField] int MaxATKScore = 15;
     [SerializeField] int MinDEFScore = 5;
     [SerializeField] int MaxDEFScore = 15;
+    private void Awake()
+    {
+        //grab references from gameobject 
+        rb = GetComponent<Rigidbody2D>(); 
+        boxCollider = GetComponent<BoxCollider2D>();
+        anim = GetComponent<Animator>();
+    }
+    private void FixedUpdate()
+    {
+        
+        float horizontalInput = Input.GetAxis("Horizontal");
+        //player walking left/right
+        rb.velocity = new Vector2(horizontalInput * speed,rb.velocity.y);
+        
+        //flips player left/right
+      if (horizontalInput> 0.01f)
+        { 
+            //checks if player moves right
+        transform.localScale = Vector3.one; 
+        
+        }
+        else if (horizontalInput < -0.01f)
+        {
+            //checks if player moves left
+            transform.localScale = new Vector3(-1,1,1);
 
+        }
+
+        //Player jump
+        if (Input.GetKey(KeyCode.Space) && IsGrounded())
+        {
+            Jump(); 
+        }
+
+        //set run anim parameters 
+        anim.SetBool("Run", horizontalInput !=0);
+
+        //adjust jump height in case 
+        //if (Input.GetKey(KeyCode.Space) && rb.velocity.y > 0)
+        //{
+         //   rb.velocity = new Vector2(rb.velocity.x,rb.velocity.y / 2);
+        //}
+    }
+    private bool IsGrounded()
+    {
+        RaycastHit2D raycastHit = Physics2D.BoxCast(boxCollider.bounds.center,boxCollider.bounds.size,0,Vector2.down,0.1f,groundLayer);
+        return raycastHit.collider !=null; 
+    }
+    private void Jump()
+    {
+        rb.velocity = new Vector2(rb.velocity.x, jumpPower);
+       
+    }
     void Start()
     {
         this.Level = StartingLevel;
