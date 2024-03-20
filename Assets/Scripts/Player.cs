@@ -70,8 +70,8 @@ public class Player : Character
         //adjust jump height in case 
         //if (Input.GetKey(KeyCode.Space) && rb.velocity.y > 0)
         //{
-         //   rb.velocity = new Vector2(rb.velocity.x,rb.velocity.y / 2);
-        //}
+          // rb.velocity = new Vector2(rb.velocity.x,rb.velocity.y / 2);
+       // }
     }
     private bool IsGrounded()
     {
@@ -80,7 +80,10 @@ public class Player : Character
     }
     private void Jump()
     {
+        //controls jump speed
         rb.velocity = new Vector2(rb.velocity.x, jumpPower);
+        //prevents player from falling over and rotating when they jump 
+        rb.constraints = RigidbodyConstraints2D.FreezeRotation;
        
     }
     void Start()
