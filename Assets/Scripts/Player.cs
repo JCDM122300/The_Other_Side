@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 //using Unity.VisualScripting.Antlr3.Runtime.Misc;
 using UnityEngine;
 
@@ -9,7 +10,11 @@ public class Player : Character
     private Rigidbody2D rb;
     [SerializeField] private float speed;
     [SerializeField] private float jumpPower;
+    [SerializeField] private float MaxJumpHeight; 
     private BoxCollider2D boxCollider;
+    private bool IsGrounded;
+    public Transform groundCheck;
+    public float checkRadius;
     private Animator anim; 
     [SerializeField] private LayerMask groundLayer;
     [SerializeField] int StartingLevel = 1;
@@ -38,10 +43,11 @@ public class Player : Character
         rb.constraints = RigidbodyConstraints2D.FreezeRotation;
         //prevents player from falling over and rotating when they jump 
         anim = GetComponent<Animator>();
+        
     }
     private void FixedUpdate()
     {
-        
+        IsGrounded = Physics2D.OverlapCircle(groundCheck.position,checkRadius, groundLayer);
         float horizontalInput = Input.GetAxis("Horizontal");
         //player walking left/right
         rb.velocity = new Vector2(horizontalInput * speed,rb.velocity.y);
@@ -61,7 +67,7 @@ public class Player : Character
         }
 
         //Player jump
-        if (Input.GetKey(KeyCode.Space) && IsGrounded())
+        if (Input.GetKey(KeyCode.Space) && IsGrounded == true)
         {
             Jump(); 
         }
@@ -75,13 +81,16 @@ public class Player : Character
          //rb.velocity = new Vector2(rb.velocity.x,rb.velocity.y / 2);
         //}
     }
-    private bool IsGrounded()
-    {
-        RaycastHit2D raycastHit = Physics2D.BoxCast(boxCollider.bounds.center,boxCollider.bounds.size,0,Vector2.down,0.1f,groundLayer);
-        return raycastHit.collider !=null; 
-    }
+    //old method to check if player is grounded 
+
+    //private bool IsGrounded()
+    //{
+        //RaycastHit2D raycastHit = Physics2D.BoxCast(boxCollider.bounds.center,boxCollider.bounds.size,0,Vector2.down,0.1f,groundLayer);
+       // return raycastHit.collider !=null; 
+    //}
     private void Jump()
     {
+        jumpPower = Mathf.Sqrt(MaxJumpHeight * Physics2D.gravity.y * -2);
         //controls jump speed
         rb.velocity = new Vector2(rb.velocity.x, jumpPower);
      
