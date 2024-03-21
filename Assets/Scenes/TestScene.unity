@@ -651,7 +651,7 @@ MonoBehaviour:
   Coins: 0
   Level: 0
   speed: 10
-  jumpPower: 15
+  jumpPower: 12
   groundLayer:
     serializedVersion: 2
     m_Bits: 8

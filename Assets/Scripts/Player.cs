@@ -35,6 +35,8 @@ public class Player : Character
         //grab references from gameobject 
         rb = GetComponent<Rigidbody2D>(); 
         boxCollider = GetComponent<BoxCollider2D>();
+        rb.constraints = RigidbodyConstraints2D.FreezeRotation;
+        //prevents player from falling over and rotating when they jump 
         anim = GetComponent<Animator>();
     }
     private void FixedUpdate()
@@ -70,8 +72,8 @@ public class Player : Character
         //adjust jump height in case 
         //if (Input.GetKey(KeyCode.Space) && rb.velocity.y > 0)
         //{
-          // rb.velocity = new Vector2(rb.velocity.x,rb.velocity.y / 2);
-       // }
+         //rb.velocity = new Vector2(rb.velocity.x,rb.velocity.y / 2);
+        //}
     }
     private bool IsGrounded()
     {
@@ -82,8 +84,8 @@ public class Player : Character
     {
         //controls jump speed
         rb.velocity = new Vector2(rb.velocity.x, jumpPower);
-        //prevents player from falling over and rotating when they jump 
-        rb.constraints = RigidbodyConstraints2D.FreezeRotation;
+     
+        
        
     }
     void Start()
