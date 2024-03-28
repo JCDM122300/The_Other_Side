@@ -29,7 +29,10 @@ public class BattleEffectsManager : MonoBehaviour
         }
     }
 
-
+    private void Start()
+    {
+        
+    }
 
     public void ApplyAttackFX(GameObject user, GameObject target, DamageVisual damageVisual, Color damagedColor)
     {
@@ -44,7 +47,8 @@ public class BattleEffectsManager : MonoBehaviour
                 if (!AttackPlaying)
                 {
                     AttackPlaying = true;
-                    StartCoroutine(DefaultCharacterShake(target, 10.0f, 0.1f, 0.3f));
+                    //StartCoroutine(DefaultCharacterShake(target, 0.3f, 3.1f, 0.3f));
+                    StartCoroutine(DefaultCharacterShake(target, 0.3f, 0.4f, Color.blue, 1));
                 }
 
                 break;
@@ -114,8 +118,12 @@ public class BattleEffectsManager : MonoBehaviour
         Color color = fromColor;
         color.a = damagedAlpha;
 
-        character.GetComponent<SpriteRenderer>().color = color;
-        character.transform.position += new Vector3(distanceFromOrigin, 0, 0);
+        distanceFromOrigin = Mathf.Clamp(distanceFromOrigin, -1.0f, 1.0f);
+
+        SpriteRenderer c = character.GetComponent<SpriteRenderer>();
+        c.color = color;
+        c.material.SetFloat("_VertexX", distanceFromOrigin);
+        //character.transform.position += new Vector3(distanceFromOrigin, 0, 0);
 
         float t = 0.0f;
         while (t < shakeTime)
@@ -124,8 +132,10 @@ public class BattleEffectsManager : MonoBehaviour
             yield return null;
         }
 
-        character.transform.position = StartingPosition;
-        character.GetComponent<SpriteRenderer>().color = fromColor;
+        c.material.SetFloat("_VertexX", 0);
+        c.color = fromColor;
+        //character.transform.position = StartingPosition;
+        //character.GetComponent<SpriteRenderer>().color = fromColor;
 
         AttackPlaying = false;
         yield return null;
@@ -135,7 +145,7 @@ public class BattleEffectsManager : MonoBehaviour
     /// Method to apply 'damage' shake after playing an attack visual, applying a full color change
     /// </summary>
     /// <param name="character">Reference to the Character this will apply to</param>
-    /// <param name="distanceFromOrigin">How far from the starting point that the shake will move the character on X-axis</param>
+    /// <param name="distanceFromOrigin">How far from the starting point that the shake will move the character on X-axis. From -1 to 1</param>
     /// <param name="shakeTime">How long in seconds that the shake position will hold</param>
     /// <param name="color">The color that will temporarily override during the shake</param>
     /// <param name="damagedAlpha">The alpha change within the current color during the shake</param>
@@ -146,8 +156,19 @@ public class BattleEffectsManager : MonoBehaviour
         Color fromColor = character.GetComponent<SpriteRenderer>().color;
         color.a = damagedAlpha;
 
-        character.GetComponent<SpriteRenderer>().color = color;
-        character.transform.position += new Vector3(distanceFromOrigin, 0, 0);
+        distanceFromOrigin = Mathf.Clamp(distanceFromOrigin, -1.0f, 1.0f);
+
+        SpriteRenderer c = character.GetComponent<SpriteRenderer>();
+        c.color = color;
+        c.material.SetFloat("_VertexX", distanceFromOrigin);
+
+        SpriteRenderer Debuff = character.transform.Find("Debuff").GetComponent<SpriteRenderer>();
+        Debuff.material.SetFloat("_Transparency", 1);
+        Debuff.material.SetFloat("_VertexX", distanceFromOrigin);
+
+
+        //character.GetComponent<SpriteRenderer>().color = color;
+        //character.transform.position += new Vector3(distanceFromOrigin, 0, 0);
 
         float t = 0.0f;
         while (t < shakeTime)
@@ -156,8 +177,12 @@ public class BattleEffectsManager : MonoBehaviour
             yield return null;
         }
 
-        character.transform.position = StartingPosition;
-        character.GetComponent<SpriteRenderer>().color = fromColor;
+        Debuff.material.SetFloat("_Transparency", 0);
+        Debuff.material.SetFloat("_VertexX", 0);
+        c.material.SetFloat("_VertexX", 0);
+        c.color = fromColor;
+        //character.transform.position = StartingPosition;
+        //character.GetComponent<SpriteRenderer>().color = fromColor;
 
         AttackPlaying = false;
         yield return null;
@@ -177,8 +202,9 @@ public class BattleEffectsManager : MonoBehaviour
         Quaternion StartingRotation = character.transform.rotation;
         Quaternion EndRotation = Quaternion.Euler(squishRotation);
 
-        Color fromColor = character.GetComponent<SpriteRenderer>().color;
-        character.GetComponent<SpriteRenderer>().color = color;
+        SpriteRenderer c = character.GetComponent<SpriteRenderer>();
+        Color fromColor = c.color;
+        c.color = color;
 
         float t = 0.0f;
         while (t < timeToSquish)
