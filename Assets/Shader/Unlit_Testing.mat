@@ -7,8 +7,8 @@ Material:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: FirstShader
-  m_Shader: {fileID: 4800000, guid: 259ac9d6743bcfa41b9bb64d969c7754, type: 3}
+  m_Name: Unlit_Testing
+  m_Shader: {fileID: 4800000, guid: 6cd55d6a3c551e04da4e7c0f0020a199, type: 3}
   m_Parent: {fileID: 0}
   m_ModifiedSerializedProperties: 0
   m_ValidKeywords: []
@@ -24,18 +24,12 @@ Material:
     serializedVersion: 3
     m_TexEnvs:
     - _MainTex:
-        m_Texture: {fileID: 2800000, guid: dffef66376be4fa480fb02b19edbe903, type: 3}
+        m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     m_Ints: []
-    m_Floats:
-    - _Amount: 0.169
-    - _Amplitude: 0.094
-    - _CutoutThresh: 0
-    - _Distance: 0.3
-    - _Frequency: 33.3
-    - _Speed: 10.63
-    - _Transparency: 0.385
+    m_Floats: []
     m_Colors:
-    - _TintColor: {r: 1, g: 1, b: 1, a: 1}
+    - _ColorOne: {r: 0, g: 1, b: 0.9616327, a: 1}
+    - _ColorTwo: {r: 1, g: 0, b: 0, a: 1}
   m_BuildTextureStacks: []

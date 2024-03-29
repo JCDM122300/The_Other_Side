@@ -2,7 +2,7 @@ Shader "Unlit/ScrollingTexture"
 {
     Properties
     {
-        _MainTex("Texture", 2D) = "white" {}
+        _MainTex("BaseTexture", 2D) = "white" {}
         _VertexX("X Offset", Range(-1, 1)) = 0.0
         _ScrollDir("Scroll Direction", Int) = -1
         _ScrollSpeed("Scroll Speed", Range(0, 5.0)) = 1.0
@@ -49,23 +49,52 @@ Shader "Unlit/ScrollingTexture"
             v2f vert (appdata v)
             {
                 v2f o;
+                
+                //Hit Offset
                 v.vertex.x += _VertexX;
+
+                //Vertex to Clip Space
                 o.vertex = UnityObjectToClipPos(v.vertex);
+
+                //UV to world space
                 o.uv = TRANSFORM_TEX(v.uv, _MainTex);
-                UNITY_TRANSFER_FOG(o,o.vertex);
+
                 return o;
             }
 
-            fixed4 frag (v2f i) : SV_Target
+            fixed4 frag(v2f i) : SV_Target
             {
-                i.uv.y += _Time.y* _ScrollSpeed * _ScrollDir;
-                i.uv = frac(i.uv);
+                //TODO: Find a away to clip uv if outside of sprite shape
 
-                // sample the texture
-                fixed4 col = tex2D(_MainTex, i.uv);
-                col.a = _Transparency;
-                col *= _TintColor;
-                return col;
+                //Scrolling UV
+                float2 baseUV = i.uv;
+                i.uv.y += _Time.y * _ScrollSpeed * _ScrollDir;
+
+                //Loops the texture | DO BEFORE SAMPLING
+                i.uv = frac(i.uv);
+            
+
+                //Sample the texture
+                fixed4 baseCol = tex2D(_MainTex, baseUV); //Base uv
+                fixed4 scrollCol = tex2D(_MainTex, i.uv); //Scrolling uv
+
+                //Removes parts of sprite that have no alpha
+                clip(scrollCol.a - 1);
+                
+                //ALPHA MASKING YEAHH
+                if (baseCol.a < 1)
+                {
+                    discard;
+                }
+                
+                // Apply scrolling texture only within the outline of the sprite
+                 
+                //Transparency and Color
+                scrollCol.a = _Transparency;
+                scrollCol *= _TintColor;
+
+
+                return scrollCol;
             }
             ENDCG
         }

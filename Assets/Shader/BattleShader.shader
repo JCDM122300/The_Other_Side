@@ -58,9 +58,11 @@ Shader "Unlit/BattleShader"
                 fixed4 col = tex2D(_MainTex, i.uv);
                    
                 //If the pixel has not alpha, it doesnt render
+                //Outside of the Sprite, pixels will extend to the 'quad'
+                //These pixels have no alpha as they arent part of actual Sprite
                 col.rgb *= col.a;
-
-                //col.a = _Transparency;
+                clip(col.a-1);
+                col.a = _Transparency;
                 col *= _TintColor;
                 return col;
             }

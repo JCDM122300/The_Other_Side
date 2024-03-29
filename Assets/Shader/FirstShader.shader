@@ -7,9 +7,9 @@ Shader "Unlit/ScrollEffect"
         _Transparency("Transparency", Range(0, 1)) = 0.25
         _CutoutThresh("Cutout Threshold", Range(0, 1.0)) = 0.2
         _Distance("Distance", Float) = 1
-        _Amplitude("Amplitude", Float) = 1
+        _Frequency("Frequency", Range(0, 50)) = 1
         _Speed("Speed", Float) = 1
-        _Amount("Amount", Range(0, 1.0)) = 1
+        _Amplitude("Amplitude", Range(0, 1.0)) = 1
     }
     SubShader
     {
@@ -46,15 +46,16 @@ Shader "Unlit/ScrollEffect"
             float _Transparency;
             float _CutoutThresh;
             float _Distance;
-            float _Amplitude;
+            float _Frequency;
             float _Speed;
-            float _Amount;
+            float _Amplitude;
 
             v2f vert (appdata v)
             {
                 v2f o;
 
-                v.vertex.x += sin(_Time.y * _Speed + v.vertex.y * _Amplitude) * _Distance * _Amount;
+                //v.vertex.x += sin(_Time.y * _Speed + v.vertex.y * _Frequency) * _Distance * _Amplitude;
+                v.vertex.x += sin(_Time.y * _Speed + v.vertex.y * _Frequency) * _Distance * _Amplitude;
 
                 o.vertex = UnityObjectToClipPos(v.vertex);
                 o.uv = TRANSFORM_TEX(v.uv, _MainTex);
@@ -62,11 +63,24 @@ Shader "Unlit/ScrollEffect"
                 return o;
             }
 
+            //float (32 bit float)
+            //half (16 bit float)
+            //fixed (low precision) -1 to 1
+            //float4 -> half4 -> fixed4
+
+            //Matrix
+            //float4x4 -> half4x4
+
             fixed4 frag (v2f i) : SV_Target
             {
-                // sample the texture
-                fixed4 col = tex2D(_MainTex, i.uv) + _TintColor;
+                fixed4 col = tex2D(_MainTex, i.uv);
+
+                col.rgb *= col.a;
+                clip(col.a - 1);
+
                 col.a = _Transparency;
+                col *= _TintColor;
+
                 clip(col.b - _CutoutThresh);
 
                 return col;
