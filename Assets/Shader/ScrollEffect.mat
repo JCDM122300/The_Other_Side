@@ -31,8 +31,8 @@ Material:
     m_Floats:
     - _CullToggle: 0
     - _ScrollDir: -1
-    - _ScrollSpeed: 1.393
-    - _Transparency: 0.317
+    - _ScrollSpeed: 0
+    - _Transparency: 0
     - _VertexX: 0
     m_Colors:
     - _TintColor: {r: 0, g: 1, b: 0.11269832, a: 1}

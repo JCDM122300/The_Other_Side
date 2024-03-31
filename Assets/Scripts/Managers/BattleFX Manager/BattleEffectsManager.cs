@@ -1,11 +1,14 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
+using Unity.Mathematics;
 using Unity.VisualScripting;
 using UnityEngine;
 using static UnityEngine.GraphicsBuffer;
 
 public enum DamageVisual {SHAKE, CRUSH}
 public enum StatusFX {BUFF, DEUBUFF}
+public enum LockMovement {NONE, RIGHT, LEFT }
 public class BattleEffectsManager : MonoBehaviour
 {
     private bool AttackPlaying;
@@ -48,7 +51,12 @@ public class BattleEffectsManager : MonoBehaviour
                 {
                     AttackPlaying = true;
                     //StartCoroutine(DefaultCharacterShake(target, 0.3f, 3.1f, 0.3f));
-                    StartCoroutine(DefaultCharacterShake(target, 0.3f, 0.4f, Color.blue, 1));
+                    //StartCoroutine(DefaultCharacterShake(target, 0.3f, 0.4f, Color.blue, 1));
+
+                    StartCoroutine(CharacterShaderAttackingShake(target, .6f, 1f, 3, LockMovement.NONE));
+                    StartCoroutine(CharacterShaderFlash(target, 0.4f));
+                    StartCoroutine(CharacterShaderColorHit(target, 0.8f, Color.red));
+                    StartCoroutine(CharacterShaderStatusFX(target, 3, 1, 1.3f, 0.8f, Color.red));
                 }
 
                 break;
@@ -162,7 +170,7 @@ public class BattleEffectsManager : MonoBehaviour
         c.color = color;
         c.material.SetFloat("_VertexX", distanceFromOrigin);
 
-        SpriteRenderer Debuff = character.transform.Find("Debuff").GetComponent<SpriteRenderer>();
+        SpriteRenderer Debuff = character.transform.Find("StatusFX").GetComponent<SpriteRenderer>();
         Debuff.material.SetFloat("_Transparency", 1);
         Debuff.material.SetFloat("_VertexX", distanceFromOrigin);
 
@@ -277,6 +285,157 @@ public class BattleEffectsManager : MonoBehaviour
         AttackPlaying = false;
         yield return null;
     }
+    private IEnumerator CharacterShaderAttackingShake(GameObject character, float distanceFromOrigin, float shakeTime, float shakeSpeed, LockMovement moveType)
+    {
+        SpriteRenderer renderer = character.GetComponent<SpriteRenderer>();
+        distanceFromOrigin = Mathf.Abs(distanceFromOrigin);
 
+
+        float t = 0.0f;
+        float dist = 0.0f;
+        while (t < shakeTime)
+        {
+            dist = Mathf.Sin((t * shakeSpeed)/distanceFromOrigin);
+
+            //Clamps movement based on lock-type
+            switch (moveType)
+            {
+                case LockMovement.NONE:
+                    dist = Mathf.Clamp(dist, -distanceFromOrigin, distanceFromOrigin);
+
+                    break;
+                case LockMovement.RIGHT:
+
+                    dist = Mathf.Clamp(dist, 0, distanceFromOrigin);
+
+                    break;
+                case LockMovement.LEFT:
+                    dist = Mathf.Clamp(dist, -distanceFromOrigin, 0);
+
+                    break;
+                default:
+                    break;
+            }
+
+            renderer.material.SetFloat("_VertexX", dist);
+            Debug.Log(dist);
+
+            t += Time.deltaTime;
+            yield return null;
+        }
+
+        renderer.material.SetFloat("_VertexX", 0.0f);
+
+        AttackPlaying = false;
+        yield return null;
+    }
+
+    private IEnumerator CharacterShaderFlash(GameObject character, float flashTime)
+    {
+        SpriteRenderer renderer = character.GetComponent<SpriteRenderer>();
+
+        float t = 0.0f;
+        bool flashed = false;
+
+        while (t < flashTime)
+        {
+            flashed = !flashed;
+            if (flashed)
+            {
+                renderer.material.SetFloat("_Transparency", 1);
+            }
+            else
+            {
+                renderer.material.SetFloat("_Transparency", 0);
+            }
+
+            t += Time.deltaTime;
+            yield return null;
+        }
+
+        renderer.material.SetFloat("_Transparency", 1);
+
+        AttackPlaying = false;
+        yield return null;
+    }
+
+    private IEnumerator CharacterShaderColorHit(GameObject character, float easeOutTime, Color changeColor)
+    {
+        //SpriteRenderer renderer = character.transform.Find("StatusFX").GetComponent<SpriteRenderer>();
+        SpriteRenderer renderer = character.GetComponent<SpriteRenderer>();
+
+        if (renderer != null)
+        {
+            Color baseColor = renderer.material.GetColor("_TintColor");
+            renderer.material.SetColor("_TintColor", changeColor);
+
+            float t = 0.0f;
+
+            Color finalColor;
+
+            while (t < easeOutTime)
+            {
+                finalColor = Color.Lerp(changeColor, baseColor, t/easeOutTime);
+                renderer.material.SetColor("_TintColor", finalColor);
+
+                Debug.Log(t/easeOutTime);
+
+                t += Time.deltaTime;
+                yield return null;
+            }
+        }
+
+        AttackPlaying = false;
+        yield return null;
+    }
+
+    private IEnumerator CharacterShaderStatusFX(GameObject character, float scrollSpeed, int scrollDir, float scrollTime, float maxAlpha, Color color)
+    {
+        SpriteRenderer renderer = character.transform.Find("StatusFX").GetComponent<SpriteRenderer>();
+        if (renderer != null)
+        {
+            float t = 0.0f;
+
+            scrollTime = Mathf.Abs(scrollTime);
+            if (maxAlpha > 1.0f)
+            {
+                maxAlpha = 1.0f;
+            }
+
+            renderer.material.SetColor("_TintColor", color);
+            renderer.material.SetFloat("_ScrollSpeed", scrollSpeed);
+            renderer.material.SetFloat("_ScrollDir", scrollDir);
+
+            float finalAlpha = 0.0f;
+            float progress = 0.0f;
+
+            while (t < scrollTime)
+            {
+                progress = t / scrollTime;
+                if (progress < 0.5f)
+                {
+                    finalAlpha = progress;
+                }
+                else
+                {
+                    finalAlpha = Mathf.Sin(1-progress);
+                    Debug.Log("AFTER 0.5 " + finalAlpha);
+                }
+
+                finalAlpha = Mathf.Clamp(finalAlpha, 0, maxAlpha);
+
+                renderer.material.SetFloat("_Transparency", finalAlpha);
+
+                t += Time.deltaTime;
+                yield return null;
+            }
+
+            renderer.material.SetFloat("_Transparency", 0);
+        }
+
+        AttackPlaying = false;
+
+        yield return null;
+    }
     #endregion
 }

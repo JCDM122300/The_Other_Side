@@ -64,7 +64,17 @@ Shader "Unlit/ScrollingTexture"
 
             fixed4 frag(v2f i) : SV_Target
             {
-                //TODO: Find a away to clip uv if outside of sprite shape
+                /* Reference the base UV (default sprite uv, no modifications).
+                *  Alter actual UV to scroll and have texture wrap.
+                *  
+                *  Clip parts of sprite that have no alpha (removes weird backgorund)
+                * 
+                *  Using the base-UV reference, anything that goes outside 
+                *  sprite UV/shape (has an alpha 0) does not get rendered. Discard;
+                *  This keeps effects to render only over the character's shape.
+                *  
+                *  Transpareny and tint, return color
+                */
 
                 //Scrolling UV
                 float2 baseUV = i.uv;
