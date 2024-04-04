@@ -32,11 +32,7 @@ public class BattleEffectsManager : MonoBehaviour
         }
     }
 
-    private void Start()
-    {
-        
-    }
-
+    /* Unused
     public void ApplyAttackFX(GameObject user, GameObject target, DamageVisual damageVisual, Color damagedColor)
     {
         //Gonna be used for when implementing the ranged aspect of the visuals
@@ -53,10 +49,10 @@ public class BattleEffectsManager : MonoBehaviour
                     //StartCoroutine(DefaultCharacterShake(target, 0.3f, 3.1f, 0.3f));
                     //StartCoroutine(DefaultCharacterShake(target, 0.3f, 0.4f, Color.blue, 1));
 
-                    StartCoroutine(CharacterShaderAttackingShake(target, .6f, 1f, 3, LockMovement.NONE));
-                    StartCoroutine(CharacterShaderFlash(target, 0.4f));
-                    StartCoroutine(CharacterShaderColorHit(target, 0.8f, Color.red));
-                    StartCoroutine(CharacterShaderStatusFX(target, 3, 1, 1.3f, 0.8f, Color.red));
+                    //StartCoroutine(CharacterShaderAttackingShake(target, .6f, 1f, 3, LockMovement.NONE));
+                    //StartCoroutine(CharacterShaderFlash(target, 0.4f));
+                    //StartCoroutine(CharacterShaderColorHit(target, 0.8f, Color.red));
+                    //StartCoroutine(CharacterShaderStatusFX(target, 3, 1, 1.3f, 0.8f, Color.red));
                 }
 
                 break;
@@ -72,6 +68,67 @@ public class BattleEffectsManager : MonoBehaviour
             default:
                 break;
         }
+    }
+    */
+
+    /// <summary>
+    /// Apply a transparent scroll effect over a period of time
+    /// </summary>
+    /// <param name="target">Who to apply effect to</param>
+    /// <param name="scrollSpeed">How fast texture scrolls</param>
+    /// <param name="scrollDir">1 = down; -1 = up</param>
+    /// <param name="scrollTime">Duration of effect</param>
+    /// <param name="maxAlpha">0 = Transparent; 1 = Fully Opaque</param>
+    /// <param name="color">Color of the effect (eg. Color.red, Color.green )</param>
+    public void ScrollEffect(GameObject target, float scrollSpeed, int scrollDir, float scrollTime, float maxAlpha, Color color)
+    {
+        StartCoroutine(CharacterShaderStatusFX(target, scrollSpeed, scrollDir, scrollTime, maxAlpha, color));
+    }
+
+    /// <summary>
+    /// Apply a color 'hit' effect to a target sprite. Hard-in to Ease-out
+    /// </summary>
+    /// <param name="target">Who to apply effect to</param>
+    /// <param name="easeOutTime">How long it takes to return to original color</param>
+    /// <param name="color">Color of the hit effect</param>
+    public void CharacterHitColorEffect(GameObject target, float easeOutTime, Color color)
+    {
+        StartCoroutine(CharacterShaderColorHit(target, easeOutTime, color));
+    }
+
+    /// <summary>
+    /// Flashes a target sprite, alternates between Opaque and Transparent
+    /// </summary>
+    /// <param name="target">Who to apply effect to</param>
+    /// <param name="flashTime">How long effect lasts for</param>
+    public void CharcterFlash(GameObject target, float flashTime)
+    {
+        StartCoroutine(CharacterShaderFlash(target, flashTime));
+    }
+
+    /// <summary>
+    /// Squishes the target Sprite by rotating using Euler
+    /// </summary>
+    /// <param name="target">Who to apply effect to</param>
+    /// <param name="squishRotation">Euler vector. Rotation of the sprite</param>
+    /// <param name="timeToSquish">How to long it takes to reach full squish</param>
+    /// <param name="SquishHoldTIme">How long the squish holds before returning to normal</param>
+    public void CharacterSquishEffect(GameObject target, Vector3 squishRotation, float timeToSquish, float SquishHoldTIme)
+    {
+        StartCoroutine(CharacterSquish(target, squishRotation, timeToSquish, SquishHoldTIme));
+    }
+
+    /// <summary>
+    /// Applies a horizontal shake to the sprite. Can lock to Right, Left, or have no lock
+    /// </summary>
+    /// <param name="target">Who to apply effect to</param>
+    /// <param name="distanceFromOrigin"> 0 to 1. 1 is approximately the sprites-width distance away from origin</param>
+    /// <param name="shakeTime">How long the sprite will shake for</param>
+    /// <param name="shakeSpeed">How fast the sprite shakes</param>
+    /// <param name="moveType">Clamp movement from RIGHT[Origin<->Right], LEFT[Left<->Origin], or NONE[Left<->Right]</param>
+    public void CharacterShake(GameObject target, float distanceFromOrigin, float shakeTime, float shakeSpeed, LockMovement moveType)
+    {
+        StartCoroutine(CharacterShaderAttackingShake(target, distanceFromOrigin, shakeTime, shakeSpeed, moveType));
     }
 
     //Unused
@@ -109,6 +166,8 @@ public class BattleEffectsManager : MonoBehaviour
 
     }
     */
+
+    //---------------------- Coroutines
 
     #region Damaging Status Show
     /// <summary>
