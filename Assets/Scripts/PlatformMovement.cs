@@ -9,15 +9,20 @@ public class PlatformMovement : MonoBehaviour
     int currentWaypointIndex = 0;
 
     [SerializeField] float speed = 1f;
+   
 
     // Reference to the player
     GameObject player;
+
+    GameObject scale;
 
     // Start is called before the first frame update
     void Start()
     {
         // Find the player object by tag
         player = GameObject.FindGameObjectWithTag("Player");
+        scale = GameObject.Find("Scale");
+        
     }
 
     // Update is called once per frame
@@ -38,7 +43,7 @@ public class PlatformMovement : MonoBehaviour
         }
     }
 
-    // LateUpdate is called after all Update functions have been called
+    //LateUpdate is called after all Update functions have been called
     void LateUpdate()
     {
         // Update the player's position relative to the platform
@@ -52,13 +57,15 @@ public class PlatformMovement : MonoBehaviour
         }
     }
 
+
     // When the player collides with the platform
     private void OnCollisionEnter2D(Collision2D collision)
     {
         if (collision.gameObject.CompareTag("Player"))
         {
             // Parent the player to the platform
-            collision.transform.SetParent(transform);
+            collision.transform.parent = scale.transform;
+        
         }
     }
 
@@ -68,7 +75,8 @@ public class PlatformMovement : MonoBehaviour
         if (collision.gameObject.CompareTag("Player"))
         {
             // Unparent the player from the platform
-            collision.transform.SetParent(null);
+            collision.transform.parent = null;
+           
         }
     }
 }
