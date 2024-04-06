@@ -64,8 +64,10 @@ public class PlatformMovement : MonoBehaviour
         if (collision.gameObject.CompareTag("Player"))
         {
             // Parent the player to the platform
+            //collision.transform.SetParent(this.transform);
+
+            //Set parent object as scale empty game object
             collision.transform.parent = scale.transform;
-        
         }
     }
 
@@ -75,8 +77,11 @@ public class PlatformMovement : MonoBehaviour
         if (collision.gameObject.CompareTag("Player"))
         {
             // Unparent the player from the platform
+            collision.transform.SetParent(null);
+
+            //unparent scale 
             collision.transform.parent = null;
-           
+
         }
     }
 }
