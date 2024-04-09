@@ -19,6 +19,8 @@ public class AreaCamera : MonoBehaviour
             FollowCamera = gameObject.GetComponentInChildren<CinemachineVirtualCamera>();
             Confiner = FollowCamera.GetComponent<CinemachineConfiner2D>();
 
+            FollowCamera.Follow = GameObject.Find("Player").gameObject.transform;
+
             FollowCamera.gameObject.SetActive(false);
         }
 

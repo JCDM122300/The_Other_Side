@@ -1,0 +1,16 @@
+(KEEP ALL COLLIDERS IN THE PREFAB TRIGGER)
+ 
+- Drag the area camera prefab over a section to focus on
+- Make sure the VCam's priority are always higher than PlayerCamera
+ 
+- On the parent object, edit the BoxCollider to fit a section of the level. This 
+  will act as the trigger for activating a camera in the area.
+
+- Edit the BoundingShape's Polygon2D collider to how you like.
+  This will confine the camera to move ONLY within those bounds so that it won't show ahead or show undesired parts.
+
+ - Make sure that the VCam 'Orthographic' (under Lens dropdown) bounds are set so that it won't exceed the size of the BoundingShape. 
+Setting the Orthographic to be the same size as BoundingShape will keep the camera completely still for that area. 
+You can play with this to make certain cameras zoom in on certain sections of the level if Orthographic is smaller than BoundingShape.
+
+   
