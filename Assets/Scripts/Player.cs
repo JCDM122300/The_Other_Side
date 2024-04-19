@@ -7,6 +7,7 @@ using UnityEngine;
 public class Player : Character
 {
     //player movement 
+    
     private Rigidbody2D rb;
     [SerializeField] private float speed;
     [SerializeField] private float jumpPower;
@@ -19,6 +20,7 @@ public class Player : Character
     [SerializeField] private LayerMask groundLayer;
     [SerializeField] int StartingLevel = 1;
     [SerializeField] int StartingCoins = 25;
+
 
     public int HP;
     public int HPMax;
@@ -147,39 +149,4 @@ public class Player : Character
 
         return DamagePercentage;
     }
-
-    //public void AddMonsterToAllMonsters(Creature c)
-    //{
-    //    if (CheckIfTeamIsFull() == true)
-    //    {
-    //        GamePrintout.TxtPrintOut += "\nYour Team is full\nThe Monster has been added to your collection";
-    //        this.AllMonsters.Add(c);
-    //    }
-    //    else
-    //    {
-    //        this.Team.Add(c);
-    //        GamePrintout.TxtPrintOut += "\nThis Monster has been added to your Team!";
-    //    }
-
-    //}
-
-    //public void AddMonsterToDeadMonsters(Creature c)
-    //{
-    //    this.DeadMonsters.Add(c);
-    //    this.Team.Remove(c);
-    //}
-
-    //public bool CheckIfTeamIsFull()
-    //{
-    //    if (this.Team.Count == 3)
-    //    {
-    //        return true;
-    //    }
-    //    return false;
-    //}
-
-    //public int GetDeadMonsterCount()
-    //{
-    //    return this.DeadMonsters.Count;
-    //}
 }

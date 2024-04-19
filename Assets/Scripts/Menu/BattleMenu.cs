@@ -17,6 +17,9 @@ public class BattleMenu : MonoBehaviour
     [SerializeField] TextMeshProUGUI PlayerHealthText;
     [SerializeField] Slider PlayerHealthSlider;
 
+    [SerializeField] GameObject FightPanel;
+    [SerializeField] GameObject BattlePanel;
+
     [SerializeField] TextMeshProUGUI EnemyNameText;
     [SerializeField] Slider EnemyHealthSlider;
 
@@ -59,6 +62,12 @@ public class BattleMenu : MonoBehaviour
 
     double Damage;
     public void FightButton()
+    {
+        FightPanel.SetActive( true );
+        BattlePanel.SetActive( false );
+    }
+
+    public void Attack()
     {
         Damage = BM.Fight(player, creature);
         Debug.Log($"Damage: {Damage}");
