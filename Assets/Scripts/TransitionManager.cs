@@ -34,17 +34,49 @@ public class TransitionManager : MonoBehaviour
         }
     }
 
-    public void Transition(bool clockwise, string SceneName)
+    public void Transition(bool clockwise, string name, Sprite enenySprite)
     {
         if (TransitionImage != null)
         {
             TransitionImage.fillClockwise = clockwise;
 
-            StartCoroutine(TransitionAndLoad(clockwise, SceneName));
+            StartCoroutine(TransitionAndLoadScreen(clockwise, name, enenySprite));
         }
     }
+    private IEnumerator TransitionAndLoadScreen(bool clockwise, string canvasName, Sprite enemySprite)
+    {
+        float t = 0.0f;
+        while (t < TransitionDuration)
+        {
+            TransitionImage.fillAmount = t / TransitionDuration;
+            t += Time.deltaTime;
+            yield return null;
+        }
 
-    private IEnumerator TransitionAndLoad(bool clockwise, string SceneName)
+        TransitionImage.fillClockwise = !clockwise;
+        t = TransitionDuration;
+
+        GameObject canvas = GameObject.Find(canvasName);
+        if (canvas != null)
+        {
+            canvas.GetComponent<ScreenActivate>().ToggleBattleScreen(true);
+            Enemy n = new Enemy();
+            canvas.GetComponentInChildren<BattleDataPasser>().PassEnemyData(n, enemySprite);
+        }
+
+        while (t > 0.0f)
+        {
+            TransitionImage.fillAmount = t / TransitionDuration;
+
+            t -= Time.deltaTime;
+            yield return null;
+        }
+
+        TransitionImage.fillAmount = 0.0f;
+
+        yield return null;
+    }
+    private IEnumerator TransitionAndLoadScene(bool clockwise, string SceneName)
     {
         float t = 0.0f;
         while (t < TransitionDuration)
