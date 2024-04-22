@@ -9,7 +9,6 @@ public class PlatformMovement : MonoBehaviour
     int currentWaypointIndex = 0;
 
     [SerializeField] float speed = 1f;
-   
 
     // Reference to the player
     GameObject player;
@@ -57,21 +56,23 @@ public class PlatformMovement : MonoBehaviour
         }
     }
 
-
     // When the player collides with the platform
     private void OnCollisionEnter2D(Collision2D collision)
     {
         if (collision.gameObject.CompareTag("Player"))
         {
             // Parent the player to the platform
-            //collision.transform.SetParent(this.transform);
+            collision.transform.SetParent(transform, true);
+            collision.transform.localScale = Vector3.one;
 
             //Set parent object as scale empty game object
-            collision.transform.parent = scale.transform;
+            //collision.transform.parent = scale.transform;
         }
     }
 
-    // When the player leaves the platform
+
+
+    //When the player leaves the platform
     private void OnCollisionExit2D(Collision2D collision)
     {
         if (collision.gameObject.CompareTag("Player"))
@@ -80,7 +81,7 @@ public class PlatformMovement : MonoBehaviour
             collision.transform.SetParent(null);
 
             //unparent scale 
-            collision.transform.parent = null;
+                //collision.transform.parent = null;
 
         }
     }
