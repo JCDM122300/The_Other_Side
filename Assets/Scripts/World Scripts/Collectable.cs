@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class Collectable : MonoBehaviour
 {
-    [SerializeField] private Item _thisItem;
+    public Item _thisItem;
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
