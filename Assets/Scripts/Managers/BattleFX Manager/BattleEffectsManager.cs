@@ -9,9 +9,13 @@ using static UnityEngine.GraphicsBuffer;
 public enum DamageVisual {SHAKE, CRUSH}
 public enum StatusFX {BUFF, DEUBUFF}
 public enum LockMovement {NONE, RIGHT, LEFT }
+
+[RequireComponent(typeof(ReusableAudioController))]
 public class BattleEffectsManager : MonoBehaviour
 {
     private bool AttackPlaying;
+
+    private ReusableAudioController audioPlayer;
 
     private static BattleEffectsManager instance;
     public static BattleEffectsManager Instance()
@@ -30,6 +34,8 @@ public class BattleEffectsManager : MonoBehaviour
         {
             Destroy(gameObject);
         }
+
+        audioPlayer = GetComponent<ReusableAudioController>();
     }
 
     /* Unused
@@ -84,6 +90,10 @@ public class BattleEffectsManager : MonoBehaviour
     {
         StartCoroutine(CharacterShaderStatusFX(target, scrollSpeed, scrollDir, scrollTime, maxAlpha, color));
     }
+    public void ScrollEffect(GameObject target, float scrollSpeed, int scrollDir, float scrollTime, float maxAlpha, Color color, string audioClip)
+    {
+        StartCoroutine(CharacterShaderStatusFX(target, scrollSpeed, scrollDir, scrollTime, maxAlpha, color, audioClip));
+    }
 
     /// <summary>
     /// Apply a color 'hit' effect to a target sprite. Hard-in to Ease-out
@@ -95,6 +105,10 @@ public class BattleEffectsManager : MonoBehaviour
     {
         StartCoroutine(CharacterShaderColorHit(target, easeOutTime, color));
     }
+    public void CharacterHitColorEffect(GameObject target, float easeOutTime, Color color, string audioClip)
+    {
+        StartCoroutine(CharacterShaderColorHit(target, easeOutTime, color, audioClip));
+    }
 
     /// <summary>
     /// Flashes a target sprite, alternates between Opaque and Transparent
@@ -105,7 +119,10 @@ public class BattleEffectsManager : MonoBehaviour
     {
         StartCoroutine(CharacterShaderFlash(target, flashTime));
     }
-
+    public void CharcterFlash(GameObject target, float flashTime, string audioClip)
+    {
+        StartCoroutine(CharacterShaderFlash(target, flashTime, audioClip));
+    }
     /// <summary>
     /// Squishes the target Sprite by rotating using Euler
     /// </summary>
@@ -116,6 +133,10 @@ public class BattleEffectsManager : MonoBehaviour
     public void CharacterSquishEffect(GameObject target, Vector3 squishRotation, float timeToSquish, float SquishHoldTIme)
     {
         StartCoroutine(CharacterSquish(target, squishRotation, timeToSquish, SquishHoldTIme));
+    }
+    public void CharacterSquishEffect(GameObject target, Vector3 squishRotation, float timeToSquish, float SquishHoldTIme, string audioClip)
+    {
+        StartCoroutine(CharacterSquish(target, squishRotation, timeToSquish, SquishHoldTIme, audioClip));
     }
 
     /// <summary>
@@ -130,7 +151,10 @@ public class BattleEffectsManager : MonoBehaviour
     {
         StartCoroutine(CharacterShaderAttackingShake(target, distanceFromOrigin, shakeTime, shakeSpeed, moveType));
     }
-
+    public void CharacterShake(GameObject target, float distanceFromOrigin, float shakeTime, float shakeSpeed, LockMovement moveType, string audioClip)
+    {
+        StartCoroutine(CharacterShaderAttackingShake(target, distanceFromOrigin, shakeTime, shakeSpeed, moveType, audioClip));
+    }
     //Unused
     /*
     public void ApplyAttackFX(GameObject user, GameObject target, DamageVisual damageVisual, ParticleSystem rangedVisual)
@@ -344,6 +368,47 @@ public class BattleEffectsManager : MonoBehaviour
         AttackPlaying = false;
         yield return null;
     }
+
+    private IEnumerator CharacterSquish(GameObject character, Vector3 squishRotation, float timeToSquish, float SquishHoldTime, Color color, string audioClip)
+    {
+        Quaternion StartingRotation = character.transform.rotation;
+        Quaternion EndRotation = Quaternion.Euler(squishRotation);
+
+        audioPlayer.PlaySound(audioClip);
+
+        SpriteRenderer c = character.GetComponent<SpriteRenderer>();
+        Color fromColor = c.color;
+        c.color = color;
+
+        float t = 0.0f;
+        while (t < timeToSquish)
+        {
+            character.transform.rotation = Quaternion.Slerp(StartingRotation, EndRotation, t);
+            t += Time.deltaTime;
+            yield return null;
+        }
+
+        t = 0.0f;
+        while (t < SquishHoldTime)
+        {
+            t += Time.deltaTime;
+            yield return null;
+        }
+
+        t = 0.0f;
+        while (t < timeToSquish)
+        {
+            character.transform.rotation = Quaternion.Slerp(EndRotation, StartingRotation, t);
+            t += Time.deltaTime;
+            yield return null;
+        }
+
+        character.GetComponent<SpriteRenderer>().color = fromColor;
+
+        AttackPlaying = false;
+        yield return null;
+    }
+
     private IEnumerator CharacterShaderAttackingShake(GameObject character, float distanceFromOrigin, float shakeTime, float shakeSpeed, LockMovement moveType)
     {
         SpriteRenderer renderer = character.GetComponent<SpriteRenderer>();
@@ -389,6 +454,53 @@ public class BattleEffectsManager : MonoBehaviour
         yield return null;
     }
 
+    private IEnumerator CharacterShaderAttackingShake(GameObject character, float distanceFromOrigin, float shakeTime, float shakeSpeed, LockMovement moveType, string audioClip)
+    {
+        SpriteRenderer renderer = character.GetComponent<SpriteRenderer>();
+        distanceFromOrigin = Mathf.Abs(distanceFromOrigin);
+
+        audioPlayer.PlaySound(audioClip);
+
+        float t = 0.0f;
+        float dist = 0.0f;
+        while (t < shakeTime)
+        {
+            dist = Mathf.Sin((t * shakeSpeed) / distanceFromOrigin);
+
+            //Clamps movement based on lock-type
+            switch (moveType)
+            {
+                case LockMovement.NONE:
+                    dist = Mathf.Clamp(dist, -distanceFromOrigin, distanceFromOrigin);
+
+                    break;
+                case LockMovement.RIGHT:
+
+                    dist = Mathf.Clamp(dist, 0, distanceFromOrigin);
+
+                    break;
+                case LockMovement.LEFT:
+                    dist = Mathf.Clamp(dist, -distanceFromOrigin, 0);
+
+                    break;
+                default:
+                    break;
+            }
+
+            renderer.material.SetFloat("_VertexX", dist);
+            Debug.Log(dist);
+
+            t += Time.deltaTime;
+            yield return null;
+        }
+
+        renderer.material.SetFloat("_VertexX", 0.0f);
+
+        AttackPlaying = false;
+        yield return null;
+    }
+
+
     private IEnumerator CharacterShaderFlash(GameObject character, float flashTime)
     {
         SpriteRenderer renderer = character.GetComponent<SpriteRenderer>();
@@ -418,6 +530,38 @@ public class BattleEffectsManager : MonoBehaviour
         yield return null;
     }
 
+    private IEnumerator CharacterShaderFlash(GameObject character, float flashTime, string audioClip)
+    {
+        SpriteRenderer renderer = character.GetComponent<SpriteRenderer>();
+
+        audioPlayer.PlaySound(audioClip);
+
+        float t = 0.0f;
+        bool flashed = false;
+
+        while (t < flashTime)
+        {
+            flashed = !flashed;
+            if (flashed)
+            {
+                renderer.material.SetFloat("_Transparency", 1);
+            }
+            else
+            {
+                renderer.material.SetFloat("_Transparency", 0);
+            }
+
+            t += Time.deltaTime;
+            yield return null;
+        }
+
+        renderer.material.SetFloat("_Transparency", 1);
+
+        AttackPlaying = false;
+        yield return null;
+    }
+
+
     private IEnumerator CharacterShaderColorHit(GameObject character, float easeOutTime, Color changeColor)
     {
         //SpriteRenderer renderer = character.transform.Find("StatusFX").GetComponent<SpriteRenderer>();
@@ -438,6 +582,38 @@ public class BattleEffectsManager : MonoBehaviour
                 renderer.material.SetColor("_TintColor", finalColor);
 
                 Debug.Log(t/easeOutTime);
+
+                t += Time.deltaTime;
+                yield return null;
+            }
+        }
+
+        AttackPlaying = false;
+        yield return null;
+    }
+
+    private IEnumerator CharacterShaderColorHit(GameObject character, float easeOutTime, Color changeColor, string audioClip)
+    {
+        //SpriteRenderer renderer = character.transform.Find("StatusFX").GetComponent<SpriteRenderer>();
+        SpriteRenderer renderer = character.GetComponent<SpriteRenderer>();
+
+        audioPlayer.PlaySound(audioClip);
+
+        if (renderer != null)
+        {
+            Color baseColor = renderer.material.GetColor("_TintColor");
+            renderer.material.SetColor("_TintColor", changeColor);
+
+            float t = 0.0f;
+
+            Color finalColor;
+
+            while (t < easeOutTime)
+            {
+                finalColor = Color.Lerp(changeColor, baseColor, t / easeOutTime);
+                renderer.material.SetColor("_TintColor", finalColor);
+
+                Debug.Log(t / easeOutTime);
 
                 t += Time.deltaTime;
                 yield return null;
@@ -478,6 +654,58 @@ public class BattleEffectsManager : MonoBehaviour
                 else
                 {
                     finalAlpha = Mathf.Sin(1-progress);
+                    Debug.Log("AFTER 0.5 " + finalAlpha);
+                }
+
+                finalAlpha = Mathf.Clamp(finalAlpha, 0, maxAlpha);
+
+                renderer.material.SetFloat("_Transparency", finalAlpha);
+
+                t += Time.deltaTime;
+                yield return null;
+            }
+
+            renderer.material.SetFloat("_Transparency", 0);
+        }
+
+        AttackPlaying = false;
+
+        yield return null;
+    }
+
+    private IEnumerator CharacterShaderStatusFX(GameObject character, float scrollSpeed, int scrollDir, float scrollTime, float maxAlpha, Color color, string audioClip)
+    {
+        SpriteRenderer renderer = character.transform.Find("StatusFX").GetComponent<SpriteRenderer>();
+
+        audioPlayer.PlaySound(audioClip);
+
+        if (renderer != null)
+        {
+            float t = 0.0f;
+
+            scrollTime = Mathf.Abs(scrollTime);
+            if (maxAlpha > 1.0f)
+            {
+                maxAlpha = 1.0f;
+            }
+
+            renderer.material.SetColor("_TintColor", color);
+            renderer.material.SetFloat("_ScrollSpeed", scrollSpeed);
+            renderer.material.SetFloat("_ScrollDir", scrollDir);
+
+            float finalAlpha = 0.0f;
+            float progress = 0.0f;
+
+            while (t < scrollTime)
+            {
+                progress = t / scrollTime;
+                if (progress < 0.5f)
+                {
+                    finalAlpha = progress;
+                }
+                else
+                {
+                    finalAlpha = Mathf.Sin(1 - progress);
                     Debug.Log("AFTER 0.5 " + finalAlpha);
                 }
 
