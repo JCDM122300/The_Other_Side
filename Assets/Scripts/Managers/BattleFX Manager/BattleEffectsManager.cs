@@ -134,9 +134,13 @@ public class BattleEffectsManager : MonoBehaviour
     {
         StartCoroutine(CharacterSquish(target, squishRotation, timeToSquish, SquishHoldTIme));
     }
-    public void CharacterSquishEffect(GameObject target, Vector3 squishRotation, float timeToSquish, float SquishHoldTIme, string audioClip)
+    public void CharacterSquishEffect(GameObject target, Vector3 squishRotation, float timeToSquish, float SquishHoldTIme, Color color)
     {
-        StartCoroutine(CharacterSquish(target, squishRotation, timeToSquish, SquishHoldTIme, audioClip));
+        StartCoroutine(CharacterSquish(target, squishRotation, timeToSquish, SquishHoldTIme, color));
+    }
+    public void CharacterSquishEffect(GameObject target, Vector3 squishRotation, float timeToSquish, float SquishHoldTIme, Color color, string audioClip)
+    {
+        StartCoroutine(CharacterSquish(target, squishRotation, timeToSquish, SquishHoldTIme, color, audioClip));
     }
 
     /// <summary>
