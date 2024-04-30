@@ -106,6 +106,14 @@ PrefabInstance:
     m_TransformParent: {fileID: 7642510513526936469}
     m_Modifications:
     - target: {fileID: 6656066986192923077, guid: e3384ca2c22dc754db738c6caff2f8ce, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 3.1267667
+      objectReference: {fileID: 0}
+    - target: {fileID: 6656066986192923077, guid: e3384ca2c22dc754db738c6caff2f8ce, type: 3}
+      propertyPath: m_LocalScale.y
+      value: 0.77150106
+      objectReference: {fileID: 0}
+    - target: {fileID: 6656066986192923077, guid: e3384ca2c22dc754db738c6caff2f8ce, type: 3}
       propertyPath: m_LocalPosition.x
       value: -37.74
       objectReference: {fileID: 0}
@@ -152,6 +160,10 @@ PrefabInstance:
     - target: {fileID: 7058145573303770784, guid: e3384ca2c22dc754db738c6caff2f8ce, type: 3}
       propertyPath: m_Layer
       value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 7252215353087059994, guid: e3384ca2c22dc754db738c6caff2f8ce, type: 3}
+      propertyPath: m_DrawMode
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -224,7 +236,7 @@ BoxCollider2D:
     oldSize: {x: 1, y: 1}
     newSize: {x: 3.1267667, y: 0.77150106}
     adaptiveTilingThreshold: 0.5
-    drawMode: 2
+    drawMode: 0
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
