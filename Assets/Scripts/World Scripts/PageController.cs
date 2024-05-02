@@ -16,6 +16,17 @@ public class PageController : MonoBehaviour
 
     public void SetPageText(string newText)
     {
-        PageText.text = newText;    
+        PageText.text = newText;
+    }
+
+    public int GetPageCount()
+    {
+        PageText.ForceMeshUpdate();
+        return PageText.textInfo.pageCount;
+    }
+
+    public void ShowPage(int pageIndex)
+    {
+        PageText.pageToDisplay = pageIndex;
     }
 }

@@ -6,9 +6,12 @@ public class Inventory : MonoBehaviour
 {
     public Dictionary<string, Item> _inventory;
 
+    public Collectable InitialNote;
+
     private void Awake()
     {
         _inventory = new Dictionary<string, Item>();
+        _inventory.Add(InitialNote.name, InitialNote._thisItem);
     }
 
     public void AddItem(Item newItm)

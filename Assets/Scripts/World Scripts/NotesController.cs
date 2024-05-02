@@ -15,6 +15,8 @@ public class NotesController : MonoBehaviour
     private List<Item> NotesList;
 
     private int ListIndex = 0;
+    private int CurrentPage = 0;
+    private int TotalPages = 0;
 
     private bool UI_Active;
     private void Awake()
@@ -46,29 +48,47 @@ public class NotesController : MonoBehaviour
         {
             if (Input.GetKeyDown(KeyCode.Q))
             {
-                if (ListIndex == 0)
+                if (CurrentPage >= 1)
                 {
-                    ListIndex = NotesList.Count - 1;
+                    CurrentPage--;
+                    Page.ShowPage(CurrentPage);
                 }
                 else
                 {
-                    ListIndex--;
-                }
+                    if (ListIndex == 0)
+                    {
+                        ListIndex = NotesList.Count - 1;
+                    }
+                    else
+                    {
+                        ListIndex--;
+                    }
 
-                ReadNote(NotesList[ListIndex]);
+                    ReadNote(NotesList[ListIndex]);
+                }
+                
             }
             else if (Input.GetKeyDown(KeyCode.E))
             {
-                if (ListIndex == NotesList.Count - 1)
+                //Increase Page | Increase Note Index if Last page
+                if (CurrentPage < TotalPages)
                 {
-                    ListIndex = 0;
+                    CurrentPage++;
+                    Page.ShowPage(CurrentPage);
                 }
                 else
                 {
-                    ListIndex++;
-                }
+                    if (ListIndex == NotesList.Count - 1)
+                    {
+                        ListIndex = 0;
+                    }
+                    else
+                    {
+                        ListIndex++;
+                    }
 
-                ReadNote(NotesList[ListIndex]);
+                    ReadNote(NotesList[ListIndex]);
+                }                
             }
         }
     }
@@ -99,5 +119,12 @@ public class NotesController : MonoBehaviour
     private void ReadNote(Item note)
     {
         Page.SetPageText(note.Description);
+
+        TotalPages = Page.GetPageCount();
+        
+        if (TotalPages > 0)
+        {
+            CurrentPage = 1;
+        }
     }
 }
