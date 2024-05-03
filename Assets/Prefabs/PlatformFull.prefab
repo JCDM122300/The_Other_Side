@@ -77,7 +77,7 @@ SpriteRenderer:
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
-  m_DrawMode: 2
+  m_DrawMode: 1
   m_Size: {x: 3.1267667, y: 0.77150106}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
