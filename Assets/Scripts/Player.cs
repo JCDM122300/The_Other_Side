@@ -8,6 +8,7 @@ public class Player : Character
 {
     //player movement 
     
+    /*
     private Rigidbody2D rb;
     [SerializeField] private float speed;
     [SerializeField] private float jumpPower;
@@ -18,6 +19,8 @@ public class Player : Character
     public float checkRadius;
     private Animator anim; 
     [SerializeField] private LayerMask groundLayer;
+    */
+
     [SerializeField] int StartingLevel = 1;
     [SerializeField] int StartingCoins = 25;
 
@@ -39,14 +42,16 @@ public class Player : Character
     [SerializeField] int MaxDEFScore = 15;
     private void Awake()
     {
+        /*
         //grab references from gameobject 
         rb = GetComponent<Rigidbody2D>(); 
         boxCollider = GetComponent<BoxCollider2D>();
         rb.constraints = RigidbodyConstraints2D.FreezeRotation;
         //prevents player from falling over and rotating when they jump 
         anim = GetComponent<Animator>();
-        
+        */
     }
+    /*
     private void FixedUpdate()
     {
         IsGrounded = Physics2D.OverlapCircle(groundCheck.position,checkRadius, groundLayer);
@@ -83,6 +88,7 @@ public class Player : Character
          //rb.velocity = new Vector2(rb.velocity.x,rb.velocity.y / 2);
         //}
     }
+    */
     //old method to check if player is grounded 
 
     //private bool IsGrounded()
@@ -90,6 +96,8 @@ public class Player : Character
         //RaycastHit2D raycastHit = Physics2D.BoxCast(boxCollider.bounds.center,boxCollider.bounds.size,0,Vector2.down,0.1f,groundLayer);
        // return raycastHit.collider !=null; 
     //}
+
+    /*
     private void Jump()
     {
         jumpPower = Mathf.Sqrt(MaxJumpHeight * Physics2D.gravity.y * -2);
@@ -99,6 +107,7 @@ public class Player : Character
         
        
     }
+    */
     void Start()
     {
         this.Level = StartingLevel;

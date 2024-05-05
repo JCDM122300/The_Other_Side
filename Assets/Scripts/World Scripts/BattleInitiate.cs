@@ -13,7 +13,7 @@ public class BattleInitiate : MonoBehaviour
     {
         if (collision.CompareTag("Player") && ScreenName != null)
         {
-            TransitionManager.instance.Transition(true, ScreenName, enemySprite);
+            TransitionManager.instance.BattleTransition(true, ScreenName, enemySprite);
         }
     }
 }
