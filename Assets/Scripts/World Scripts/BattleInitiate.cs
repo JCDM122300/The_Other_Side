@@ -1,19 +1,21 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.EventSystems;
 
 public class BattleInitiate : MonoBehaviour
 {
-    [Tooltip("Searches for Gameobject of this name. Battle Screen- name")]
-    [SerializeField] private string ScreenName;
-
     private Sprite enemySprite;
     private int enemyLevel = 0;
+
+    public static event EventHandler OnBattleInitiate;
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.CompareTag("Player") && ScreenName != null)
+        if (collision.CompareTag("Player"))
         {
-            TransitionManager.instance.BattleTransition(true, ScreenName, enemySprite);
+            OnBattleInitiate?.Invoke(this, EventArgs.Empty);
+            TransitionManager.instance.EnterBattleTransition(true);
         }
     }
 }

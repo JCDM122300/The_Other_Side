@@ -8,14 +8,37 @@ public class ScreenActivate : MonoBehaviour
 
     private void Start()
     {
-        if (BattleScreen != null)
-        {
-            BattleScreen.SetActive(false);
-        }
+        TransitionManager.OnEnableScreen += OnTranstitionFinsiedEnter;
+        TransitionManager.OnDisableScreen += OnTransitionFinsihedFlee;
+
+        ToggleChildren(false);
+    }
+
+    private void OnTransitionFinsihedFlee(object sender, System.EventArgs e)
+    {
+        ToggleChildren(false);
+    }
+
+    private void OnTranstitionFinsiedEnter(object sender, System.EventArgs e)
+    {
+        ToggleChildren(true);
     }
 
     public void ToggleBattleScreen(bool toggle)
     {
         BattleScreen.SetActive(toggle);
+    }
+
+    private void ToggleChildren(bool toggle)
+    {
+        foreach (Transform child in gameObject.transform)
+        {
+            child.gameObject.SetActive(toggle);
+        }
+    }
+
+    private void OnDestroy()
+    {
+        TransitionManager.OnEnableScreen -= OnTranstitionFinsiedEnter;
     }
 }

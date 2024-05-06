@@ -11,7 +11,8 @@ public class SceneTransitionZone : MonoBehaviour
     {
         if (collision.gameObject.CompareTag("Player"))
         {
-            GameObject.Find("TransitionManager").GetComponent<TransitionManager>().MoveToScene(NextSceneName);
+            TransitionManager.instance.MoveToScene(NextSceneName);
+            //GameObject.Find("TransitionManager").GetComponent<TransitionManager>().MoveToScene(NextSceneName);
         }        
     }
 }

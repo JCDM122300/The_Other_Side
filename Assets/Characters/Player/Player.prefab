@@ -14,6 +14,7 @@ GameObject:
   - component: {fileID: 7131124399781529951}
   - component: {fileID: 6000166145872651464}
   - component: {fileID: 1943804295959083574}
+  - component: {fileID: 8986989668365999775}
   - component: {fileID: 4655343089428783906}
   m_Layer: 0
   m_Name: Player
@@ -195,6 +196,34 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   InitialNote: {fileID: 1684211527511594608, guid: 7732f0cb27b72ed4e85edc16159c65fe, type: 3}
+--- !u!114 &8986989668365999775
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3233754609137103703}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6f831abd92e71ff449e1314607824be7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Name: Aurora
+  Coins: 0
+  Level: 0
+  StartingLevel: 1
+  StartingCoins: 25
+  HP: 0
+  HPMax: 0
+  ATKScore: 0
+  DEFScore: 0
+  Dead: 0
+  MinHP: 10
+  MaxHP: 20
+  MinATKScore: 5
+  MaxATKScore: 15
+  MinDEFScore: 5
+  MaxDEFScore: 15
 --- !u!95 &4655343089428783906
 Animator:
   serializedVersion: 5

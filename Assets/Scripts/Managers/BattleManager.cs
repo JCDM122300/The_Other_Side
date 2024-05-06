@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Drawing;
@@ -55,6 +56,7 @@ public class BattleManager : MonoBehaviour
     [SerializeField] int currentEnemyHealth;
     [SerializeField] int maxEnemyHealth;
 
+    public static event EventHandler OnBattleFlee;
     public BattleManager()
     {
         P = new Player();
@@ -81,6 +83,10 @@ public class BattleManager : MonoBehaviour
         
     }
 
+    public void FleeBattle()
+    {
+        OnBattleFlee?.Invoke(this, EventArgs.Empty);
+    }
     void LoadBattleEvelemts()
     {
         //PMLocation = new Vector2(margin, game.GraphicsDevice.Viewport.Height - 400);

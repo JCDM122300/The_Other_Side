@@ -1,7 +1,10 @@
+using System;
 using System.Collections;
 using UnityEngine;
+using UnityEngine.EventSystems;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
+using static System.TimeZoneInfo;
 
 public class TransitionManager : MonoBehaviour
 {
@@ -24,11 +27,21 @@ public class TransitionManager : MonoBehaviour
     [SerializeField] private Image BattleTransitionImage;
     [SerializeField] private Image SceneTransitionImage;
 
+    //This canvas
+    private Canvas CanvasComponent;
+    private int BaseSortingLayer;
+
     //Minumum length of a transition
     [SerializeField] private float TransitionDuration = 1.5f; //Default 1.5 
 
+    public static event EventHandler OnEnableScreen;
+    public static event EventHandler OnDisableScreen;
+
     private void Start()
     {
+        CanvasComponent = GetComponent<Canvas>();
+        BaseSortingLayer = CanvasComponent.sortingOrder;
+
         if (BattleTransitionImage == null)
         {
             BattleTransitionImage = GetComponentInChildren<Image>();
@@ -36,115 +49,141 @@ public class TransitionManager : MonoBehaviour
 
         if (SceneTransitionImage != null)
         {
-            SceneTransitionImage = GetComponentInChildren<Image>();
             Color c = SceneTransitionImage.color;
             c.a = 0.0f;
             SceneTransitionImage.color = c;
         }
+
+        BattleManager.OnBattleFlee += FleeBattleTransition;
     }
 
-    public void BattleTransition(bool clockwise, string name, Sprite enenySprite)
+
+    private void FleeBattleTransition(object sender, EventArgs e)
+    {
+        LeaveBattleTransition(true);
+    }
+
+    public void EnterBattleTransition(bool clockwise)
     {
         if (BattleTransitionImage != null)
         {
             BattleTransitionImage.fillClockwise = clockwise;
 
-            StartCoroutine(TransitionAndLoadScreen(clockwise, name, enenySprite));
+            StartCoroutine(EnterBattleScreen(clockwise));
+        }
+    }
+    
+    public void LeaveBattleTransition(bool clockwise)
+    {
+        if (BattleTransitionImage != null)
+        {
+            BattleTransitionImage.fillClockwise = clockwise;
+
+            StartCoroutine(ExitBattleScreen(clockwise));
         }
     }
 
     public void MoveToScene(string sceneName)
     {
-        StartCoroutine(SceneTransition(1.5f, sceneName));
+        StartCoroutine(SceneTransition(TransitionDuration, sceneName));
     }
 
     #region Battle Transitions
-    private IEnumerator TransitionAndLoadScreen(bool clockwise, string canvasName, Sprite enemySprite)
+    private IEnumerator EnterBattleScreen(bool clockwise)
     {
+        CanvasComponent.sortingOrder = 20;
+
+        Color bc = BattleTransitionImage.color;
+        bc.a = 255;
+        BattleTransitionImage.color = bc;
+
         float t = 0.0f;
         while (t < TransitionDuration)
         {
             BattleTransitionImage.fillAmount = t / TransitionDuration;
-            t += Time.deltaTime;
+            t += Time.unscaledDeltaTime;
             yield return null;
         }
 
         BattleTransitionImage.fillClockwise = !clockwise;
         t = TransitionDuration;
 
+        OnEnableScreen?.Invoke(this, EventArgs.Empty);
+
+        /*
         GameObject canvas = GameObject.Find(canvasName);
         if (canvas != null)
         {
             canvas.GetComponent<ScreenActivate>().ToggleBattleScreen(true);
-            Enemy n = new Enemy();
-            canvas.GetComponentInChildren<BattleDataPasser>().PassEnemyData(n, enemySprite);
         }
+        */
 
         while (t > 0.0f)
         {
             BattleTransitionImage.fillAmount = t / TransitionDuration;
 
-            t -= Time.deltaTime;
+            t -= Time.unscaledDeltaTime;
             yield return null;
         }
 
         BattleTransitionImage.fillAmount = 0.0f;
 
+        CanvasComponent.sortingOrder = BaseSortingLayer;
+
         yield return null;
     }
-    /*
-    private IEnumerator TransitionAndLoadScene(bool clockwise, string SceneName)
+
+    private IEnumerator ExitBattleScreen(bool clockwise)
     {
+        CanvasComponent.sortingOrder = 20;
+
+        Color bc = BattleTransitionImage.color;
+        bc.a = 255;
+        BattleTransitionImage.color = bc;
+
         float t = 0.0f;
         while (t < TransitionDuration)
         {
-            BattleTransitionImage.fillAmount = t/TransitionDuration;
-            Debug.Log("Transitionign");
-            t += Time.deltaTime;
+            BattleTransitionImage.fillAmount = t / TransitionDuration;
+            t += Time.unscaledDeltaTime;
             yield return null;
         }
-
-        ///
-        AsyncOperation asyncLoad = SceneManager.LoadSceneAsync(SceneName, LoadSceneMode.Additive);
-        asyncLoad.allowSceneActivation = false;
-        Debug.Log("Loading Scene");
-
-
-        //Wait for scene to finish loading before Screen Wipe
-        while (!asyncLoad.isDone)
-        {
-             Debug.Log("Waiting for Scene");
-            yield return null;
-        }
-        Debug.Log("Fisnihed Scene");
-        ///
 
         BattleTransitionImage.fillClockwise = !clockwise;
         t = TransitionDuration;
 
-        var lof = SceneManager.LoadSceneAsync(SceneName, LoadSceneMode.Additive);
-        lof.allowSceneActivation = false;
+        OnDisableScreen?.Invoke(this, EventArgs.Empty);
+
+        /*
+        GameObject canvas = GameObject.Find(canvasName);
+        if (canvas != null)
+        {
+            canvas.GetComponent<ScreenActivate>().ToggleBattleScreen(true);
+        }
+        */
+
         while (t > 0.0f)
         {
             BattleTransitionImage.fillAmount = t / TransitionDuration;
-            Debug.Log("Unwiping");
 
-            t -= Time.deltaTime;
+            t -= Time.unscaledDeltaTime;
             yield return null;
         }
 
         BattleTransitionImage.fillAmount = 0.0f;
-        lof.allowSceneActivation = true;
+
+        CanvasComponent.sortingOrder = BaseSortingLayer;
 
         yield return null;
     }
-    */
     #endregion
 
     #region Scene Transitions
 
     private IEnumerator SceneTransition(float transitionTime, string sceneName)
     {
+        CanvasComponent.sortingOrder = 20;
+
         Color c = SceneTransitionImage.color;
         c.a = 0.0f;
         SceneTransitionImage.color = c;
@@ -153,35 +192,51 @@ public class TransitionManager : MonoBehaviour
 
         while (t < transitionTime)
         {
-            c.a = Mathf.Lerp(c.a, 255, t);
+            c.a = Mathf.Lerp(c.a, 1, t);
             SceneTransitionImage.color = c;
 
-            t += Time.deltaTime;
+            Debug.Log(c.a);
+
+            t += Time.unscaledDeltaTime;
             yield return null;
         }
 
-        AsyncOperation s = SceneManager.LoadSceneAsync(sceneName);
-
-        while (!s.isDone)
-        {
-            yield return null;
-        }
+        c.a = 1;
+        SceneTransitionImage.color = c;
 
         
+        AsyncOperation s = SceneManager.LoadSceneAsync(sceneName);
 
-        t = 0.0f;
+        StartCoroutine(FadeIn(transitionTime));
+        yield return null;
+    }
+
+    private IEnumerator FadeIn(float transitionTime)
+    {
+        Color c = SceneTransitionImage.color;
+        float t = 0.0f;
+
         while (t < transitionTime)
         {
             c.a = Mathf.Lerp(c.a, 0, t);
             SceneTransitionImage.color = c;
 
-            t += Time.deltaTime;
+            Debug.Log(c.a);
+
+            t += Time.unscaledDeltaTime;
             yield return null;
         }
 
+        c.a = 0.0f;
+        SceneTransitionImage.color = c;
 
         yield return null;
-    }
 
+    }
     #endregion
+
+    private void OnDestroy()
+    {
+        BattleManager.OnBattleFlee -= FleeBattleTransition;
+    }
 }
