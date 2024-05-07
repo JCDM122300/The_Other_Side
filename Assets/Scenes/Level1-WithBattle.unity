@@ -380,7 +380,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4352956085660414817, guid: 8b89257f947a58f42a5c78c0d6198589, type: 3}
       propertyPath: m_Lens.OrthographicSize
-      value: 6.23
+      value: 6.8
       objectReference: {fileID: 0}
     - target: {fileID: 6693798927167987839, guid: 8b89257f947a58f42a5c78c0d6198589, type: 3}
       propertyPath: m_LocalPosition.x
