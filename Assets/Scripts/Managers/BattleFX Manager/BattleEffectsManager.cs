@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using Unity.Mathematics;
 using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.UI;
 using static UnityEngine.GraphicsBuffer;
 
 public enum DamageVisual {SHAKE, CRUSH}
@@ -223,7 +224,7 @@ public class BattleEffectsManager : MonoBehaviour
         float t = 0.0f;
         while (t < shakeTime)
         {            
-            t += Time.deltaTime;
+            t += Time.unscaledDeltaTime;
             yield return null;
         }
 
@@ -268,7 +269,7 @@ public class BattleEffectsManager : MonoBehaviour
         float t = 0.0f;
         while (t < shakeTime)
         {
-            t += Time.deltaTime;
+            t += Time.unscaledDeltaTime;
             yield return null;
         }
 
@@ -305,14 +306,14 @@ public class BattleEffectsManager : MonoBehaviour
         while (t < timeToSquish)
         {
             character.transform.rotation = Quaternion.Slerp(StartingRotation, EndRotation, t);
-            t += Time.deltaTime;
+            t += Time.unscaledDeltaTime;
             yield return null;
         }
 
         t = 0.0f;
         while (t < SquishHoldTime)
         {
-            t += Time.deltaTime;
+            t += Time.unscaledDeltaTime;
             yield return null;
         }
 
@@ -320,7 +321,7 @@ public class BattleEffectsManager : MonoBehaviour
         while (t < timeToSquish)
         {
             character.transform.rotation = Quaternion.Slerp(EndRotation, StartingRotation, t);
-            t += Time.deltaTime;
+            t += Time.unscaledDeltaTime;
             yield return null;
         }
 
@@ -347,7 +348,7 @@ public class BattleEffectsManager : MonoBehaviour
         while (t < timeToSquish)
         {
             character.transform.rotation = Quaternion.Slerp(StartingRotation, EndRotation, t/timeToSquish);
-            t += Time.deltaTime;
+            t += Time.unscaledDeltaTime;
             yield return null;
         }
         yield return null;
@@ -356,7 +357,7 @@ public class BattleEffectsManager : MonoBehaviour
         t = 0.0f;
         while (t < SquishHoldTime)
         {
-            t += Time.deltaTime;
+            t += Time.unscaledDeltaTime;
             yield return null;
         }
 
@@ -364,7 +365,7 @@ public class BattleEffectsManager : MonoBehaviour
         while (t < timeToSquish)
         {
             character.transform.rotation = Quaternion.Slerp(EndRotation, StartingRotation, t/timeToSquish);
-            t += Time.deltaTime;
+            t += Time.unscaledDeltaTime;
             yield return null;
         }
         
@@ -388,14 +389,14 @@ public class BattleEffectsManager : MonoBehaviour
         while (t < timeToSquish)
         {
             character.transform.rotation = Quaternion.Slerp(StartingRotation, EndRotation, t);
-            t += Time.deltaTime;
+            t += Time.unscaledDeltaTime;
             yield return null;
         }
 
         t = 0.0f;
         while (t < SquishHoldTime)
         {
-            t += Time.deltaTime;
+            t += Time.unscaledDeltaTime;
             yield return null;
         }
 
@@ -403,7 +404,7 @@ public class BattleEffectsManager : MonoBehaviour
         while (t < timeToSquish)
         {
             character.transform.rotation = Quaternion.Slerp(EndRotation, StartingRotation, t);
-            t += Time.deltaTime;
+            t += Time.unscaledDeltaTime;
             yield return null;
         }
 
@@ -415,7 +416,8 @@ public class BattleEffectsManager : MonoBehaviour
 
     private IEnumerator CharacterShaderAttackingShake(GameObject character, float distanceFromOrigin, float shakeTime, float shakeSpeed, LockMovement moveType)
     {
-        SpriteRenderer renderer = character.GetComponent<SpriteRenderer>();
+        //SpriteRenderer renderer = character.GetComponent<SpriteRenderer>();
+        Image renderer = character.GetComponent<Image>();
         distanceFromOrigin = Mathf.Abs(distanceFromOrigin);
 
 
@@ -423,7 +425,8 @@ public class BattleEffectsManager : MonoBehaviour
         float dist = 0.0f;
         while (t < shakeTime)
         {
-            dist = Mathf.Sin((t * shakeSpeed)/distanceFromOrigin);
+            float d = Mathf.Sin((t * shakeSpeed)/distanceFromOrigin);
+            dist = Mathf.Lerp(dist, distanceFromOrigin, d);
 
             //Clamps movement based on lock-type
             switch (moveType)
@@ -448,7 +451,7 @@ public class BattleEffectsManager : MonoBehaviour
             renderer.material.SetFloat("_VertexX", dist);
             Debug.Log(dist);
 
-            t += Time.deltaTime;
+            t += Time.unscaledDeltaTime;
             yield return null;
         }
 
@@ -494,7 +497,7 @@ public class BattleEffectsManager : MonoBehaviour
             renderer.material.SetFloat("_VertexX", dist);
             Debug.Log(dist);
 
-            t += Time.deltaTime;
+            t += Time.unscaledDeltaTime;
             yield return null;
         }
 
@@ -507,7 +510,8 @@ public class BattleEffectsManager : MonoBehaviour
 
     private IEnumerator CharacterShaderFlash(GameObject character, float flashTime)
     {
-        SpriteRenderer renderer = character.GetComponent<SpriteRenderer>();
+        //SpriteRenderer renderer = character.GetComponent<SpriteRenderer>();
+        Image renderer = character.GetComponent<Image>();
 
         float t = 0.0f;
         bool flashed = false;
@@ -524,7 +528,7 @@ public class BattleEffectsManager : MonoBehaviour
                 renderer.material.SetFloat("_Transparency", 0);
             }
 
-            t += Time.deltaTime;
+            t += Time.unscaledDeltaTime;
             yield return null;
         }
 
@@ -536,7 +540,8 @@ public class BattleEffectsManager : MonoBehaviour
 
     private IEnumerator CharacterShaderFlash(GameObject character, float flashTime, string audioClip)
     {
-        SpriteRenderer renderer = character.GetComponent<SpriteRenderer>();
+        //SpriteRenderer renderer = character.GetComponent<SpriteRenderer>();
+        Image renderer = character.GetComponent<Image>();
 
         audioPlayer.PlaySound(audioClip);
 
@@ -555,7 +560,7 @@ public class BattleEffectsManager : MonoBehaviour
                 renderer.material.SetFloat("_Transparency", 0);
             }
 
-            t += Time.deltaTime;
+            t += Time.unscaledDeltaTime;
             yield return null;
         }
 
@@ -587,7 +592,7 @@ public class BattleEffectsManager : MonoBehaviour
 
                 Debug.Log(t/easeOutTime);
 
-                t += Time.deltaTime;
+                t += Time.unscaledDeltaTime;
                 yield return null;
             }
         }
@@ -619,7 +624,7 @@ public class BattleEffectsManager : MonoBehaviour
 
                 Debug.Log(t / easeOutTime);
 
-                t += Time.deltaTime;
+                t += Time.unscaledDeltaTime;
                 yield return null;
             }
         }
@@ -665,7 +670,7 @@ public class BattleEffectsManager : MonoBehaviour
 
                 renderer.material.SetFloat("_Transparency", finalAlpha);
 
-                t += Time.deltaTime;
+                t += Time.unscaledDeltaTime;
                 yield return null;
             }
 
@@ -717,7 +722,7 @@ public class BattleEffectsManager : MonoBehaviour
 
                 renderer.material.SetFloat("_Transparency", finalAlpha);
 
-                t += Time.deltaTime;
+                t += Time.unscaledDeltaTime;
                 yield return null;
             }
 

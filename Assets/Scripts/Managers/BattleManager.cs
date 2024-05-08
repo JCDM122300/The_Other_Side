@@ -17,7 +17,8 @@ public class BattleManager : MonoBehaviour
 
 
     Player P;
-    Enemy E;
+    Creature E;
+    //Enemy E;
 
     public int Turn;
 
@@ -47,6 +48,8 @@ public class BattleManager : MonoBehaviour
 
     int margin = 50;
 
+    [SerializeField] private Transform MenuReference;
+
     [SerializeField] Slider PlayerHealth;
     [SerializeField] Slider EnemyHealth;
 
@@ -57,10 +60,13 @@ public class BattleManager : MonoBehaviour
     [SerializeField] int maxEnemyHealth;
 
     public static event EventHandler OnBattleFlee;
+
+    
     public BattleManager()
-    {
-        P = new Player();
-        E = new Enemy();
+    {       
+        //P = new Player();
+        //E = new Enemy();
+
         //P = GetComponent<Player>();
         //E = GetComponent<Enemy>();
 
@@ -73,8 +79,16 @@ public class BattleManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        LoadBattleEvelemts();
+        //P = GameObject.FindGameObjectWithTag("Player").GetComponent<Player>();
+        //E = MenuReference.GetComponent<BattleMenu>().creature;
+        //LoadBattleEvelemts();
         //P.CurrentMonster = P.Team[0];
+    }
+
+    private void OnEnable()
+    {
+        P = GameObject.FindGameObjectWithTag("Player").GetComponent<Player>();
+        E = MenuReference.GetComponent<BattleMenu>().creature;
     }
 
     // Update is called once per frame
@@ -463,26 +477,26 @@ public class BattleManager : MonoBehaviour
         return coinstatus;
     }
 
-    public string CheckCoinsGained()
-    {
-        //depends on difficulty
-        if (GameDifficulty == GameDifficulty.Easy)
-        {
-            P.Coins += (E.Coins / 3); // Gains a 1/3 of the Enemies coins
-            coinstatus = $"\nYou gaid {E.Coins / 3} Coins from the Enemy";
-        }
-        if (GameDifficulty == GameDifficulty.Medium)
-        {
-            P.Coins += ((E.Coins / 3) * 2); //Gains 2/3 of the Enemies coins
-            coinstatus = $"\nYou gaid {E.Coins / 2} Coins from the Enemy";
-        }
-        if (GameDifficulty == GameDifficulty.Hard)
-        {
-            P.Coins += E.Coins; // Gains all of Enemies Coins
-            coinstatus = $"\nYou gaid {E.Coins} Coins from the Enemy";
-        }
-        return coinstatus;
-    }
+    //public string CheckCoinsGained()
+    //{
+    //    //depends on difficulty
+    //    if (GameDifficulty == GameDifficulty.Easy)
+    //    {
+    //        P.Coins += (E.Coins / 3); // Gains a 1/3 of the Enemies coins
+    //        coinstatus = $"\nYou gaid {E.Coins / 3} Coins from the Enemy";
+    //    }
+    //    if (GameDifficulty == GameDifficulty.Medium)
+    //    {
+    //        P.Coins += ((E.Coins / 3) * 2); //Gains 2/3 of the Enemies coins
+    //        coinstatus = $"\nYou gaid {E.Coins / 2} Coins from the Enemy";
+    //    }
+    //    if (GameDifficulty == GameDifficulty.Hard)
+    //    {
+    //        P.Coins += E.Coins; // Gains all of Enemies Coins
+    //        coinstatus = $"\nYou gaid {E.Coins} Coins from the Enemy";
+    //    }
+    //    return coinstatus;
+    //}
     #endregion
 
     #region Input

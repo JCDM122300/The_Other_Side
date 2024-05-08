@@ -210,16 +210,16 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Name: Aurora
   Coins: 0
-  Level: 0
+  Level: 1
   StartingLevel: 1
-  StartingCoins: 25
-  HP: 0
-  HPMax: 0
-  ATKScore: 0
-  DEFScore: 0
+  StartingCoins: 0
+  HP: 50
+  HPMax: 50
+  ATKScore: 2
+  DEFScore: 2
   Dead: 0
-  MinHP: 10
-  MaxHP: 20
+  MinHP: 50
+  MaxHP: 50
   MinATKScore: 5
   MaxATKScore: 15
   MinDEFScore: 5

@@ -1,24 +1,37 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class InstanceMaterial : MonoBehaviour
 {
     [SerializeField] private Material materialReference;
+    [SerializeField] private bool ImageComponent = false;
 
     private SpriteRenderer spriteRenderer;
+    private Image image;
 
     void Start()
     {
-        if (gameObject.TryGetComponent<SpriteRenderer>(out SpriteRenderer t))
-        {
-            spriteRenderer = t;
-        }
+        Material mat = new Material(materialReference);
 
-        if (materialReference != null)
+        if (!ImageComponent)
         {
-            Material mat = new Material(materialReference);
-            spriteRenderer.material = mat;
+            if (gameObject.TryGetComponent<SpriteRenderer>(out SpriteRenderer t))
+            {
+                spriteRenderer = t;
+            }
+
+            if (materialReference != null)
+            {
+                spriteRenderer.material = mat;
+            }
         }
+        else
+        {
+            image = GetComponent<Image>();
+            image.material = mat;
+        }
+        
     }
 }

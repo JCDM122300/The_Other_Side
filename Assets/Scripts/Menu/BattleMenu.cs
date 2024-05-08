@@ -9,7 +9,7 @@ public class BattleMenu : MonoBehaviour
     BattleManager BM;
     
     [SerializeField] Player player;
-    [SerializeField] Creature creature;
+    public Creature creature;
 
     [Header("Window Values")]
     [SerializeField] TextMeshProUGUI BattleText;
@@ -23,19 +23,35 @@ public class BattleMenu : MonoBehaviour
     [SerializeField] TextMeshProUGUI EnemyNameText;
     [SerializeField] Slider EnemyHealthSlider;
 
-    
+    [SerializeField] private Image PlayerSpriteBox;
+    [SerializeField] private Image CreatureSpriteBox;
+
+
+    private GameObject PlayerObject;
 
     // Start is called before the first frame update
     void Start()
     {
         BM = new BattleManager();
-        GameObject playerObject = GameObject.FindGameObjectWithTag("Player");
-        player = playerObject.GetComponent<Player>();
+        PlayerObject = GameObject.FindGameObjectWithTag("Player");
+        player = PlayerObject.GetComponent<Player>();
 
-        GameObject creatureObject = GameObject.FindGameObjectWithTag("Enemy");
-        creature = creatureObject.GetComponent<Creature>();
+        //For Camera-space
+        //gameObject.GetComponent<Canvas>().worldCamera = Camera.main;
+
+        //GameObject creatureObject = GameObject.FindGameObjectWithTag("Enemy");
+        //creature = creatureObject.GetComponent<Creature>();
+
+        //PopulateScreen();
+    }
+    private void BattleInitiate_OnEnemyInitiate(object sender, (Creature, Sprite) e)
+    {
+        creature = e.Item1;
 
         PopulateScreen();
+
+        Sprite s = PlayerObject.GetComponent<SpriteRenderer>().sprite;
+        SetSprites(s, e.Item2);
     }
     public void PopulateScreen()
     {
@@ -49,6 +65,12 @@ public class BattleMenu : MonoBehaviour
         EnemyNameText.text = creature.Name;
         EnemyHealthSlider.value = creature.HP;
         EnemyHealthSlider.maxValue = creature.HPMax;
+    }
+
+    private void SetSprites(Sprite playerSprite, Sprite enemySprite)
+    {
+        PlayerSpriteBox.sprite = playerSprite;
+        CreatureSpriteBox.sprite = enemySprite;
     }
 
     // Update is called once per frame
@@ -66,12 +88,18 @@ public class BattleMenu : MonoBehaviour
         FightPanel.SetActive( true );
         BattlePanel.SetActive( false );
     }
-
+    public void BackButton()
+    {
+        FightPanel.SetActive(false);
+        BattlePanel.SetActive(true);
+    }
     public void Attack()
     {
         Damage = BM.Fight(player, creature);
+        BattleEffectsManager.Instance().CharacterShake(PlayerSpriteBox.gameObject, 15, 0.8f, 3,LockMovement.RIGHT);
         Debug.Log($"Damage: {Damage}");
 
+        BattleEffectsManager.Instance().CharcterFlash(CreatureSpriteBox.gameObject, 0.8f);
         creature.HP -= (int)Damage;
         Debug.Log($"Enemies health is now: {creature.HP}");
 
@@ -85,6 +113,18 @@ public class BattleMenu : MonoBehaviour
 
     public void RunButton()
     {
+        BM.FleeBattle();
+    }
 
+    private void OnEnable()
+    {
+        BattleInitiate.OnEnemyInitiate += BattleInitiate_OnEnemyInitiate;
+    }
+
+    
+
+    private void OnDisable()
+    {
+        
     }
 }
