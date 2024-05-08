@@ -16,11 +16,11 @@ public class Inventory : MonoBehaviour
 
     public void AddItem(Item newItm)
     {
-        if (!_inventory.ContainsKey(newItm.Name))
-        {
-            _inventory.Add(newItm.Name, newItm);
-            Debug.Log("Collected " + newItm.Name);
-        }        
+        int rand = UnityEngine.Random.Range(1, GetInstanceID());
+        string nKey = rand.ToString();
+
+        _inventory.Add(newItm.Name + nKey, newItm);
+        Debug.Log("Collected " + newItm.Name);
     }
 
     public bool ContainsItem(string itemName)

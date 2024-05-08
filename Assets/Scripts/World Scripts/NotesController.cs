@@ -88,7 +88,9 @@ public class NotesController : MonoBehaviour
                     }
 
                     ReadNote(NotesList[ListIndex]);
-                }                
+                    Page.ShowPage(CurrentPage);
+
+                }
             }
         }
     }
