@@ -535,7 +535,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Attack 2
+  m_text: '*locked*'
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 0c6c9d447b11e7e4dba39f8d1d62825a, type: 2}
   m_sharedMaterial: {fileID: 3586404210233547348, guid: 0c6c9d447b11e7e4dba39f8d1d62825a, type: 2}
@@ -2612,7 +2612,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Attack 4
+  m_text: '*locked*'
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 0c6c9d447b11e7e4dba39f8d1d62825a, type: 2}
   m_sharedMaterial: {fileID: 3586404210233547348, guid: 0c6c9d447b11e7e4dba39f8d1d62825a, type: 2}
@@ -2746,7 +2746,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Battle info text...
+  m_text: What will you do?
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 0c6c9d447b11e7e4dba39f8d1d62825a, type: 2}
   m_sharedMaterial: {fileID: 3586404210233547348, guid: 0c6c9d447b11e7e4dba39f8d1d62825a, type: 2}
@@ -3880,7 +3880,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Attack 3
+  m_text: '*locked*'
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 0c6c9d447b11e7e4dba39f8d1d62825a, type: 2}
   m_sharedMaterial: {fileID: 3586404210233547348, guid: 0c6c9d447b11e7e4dba39f8d1d62825a, type: 2}
@@ -4320,7 +4320,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Attack 1
+  m_text: Attack!
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 0c6c9d447b11e7e4dba39f8d1d62825a, type: 2}
   m_sharedMaterial: {fileID: 3586404210233547348, guid: 0c6c9d447b11e7e4dba39f8d1d62825a, type: 2}
