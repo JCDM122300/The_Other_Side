@@ -8,7 +8,8 @@ public class WorldManager : MonoBehaviour
     void Start()
     {
         BattleInitiate.OnBattleInitiate += StopWorld;
-        BattleManager.OnBattleFlee += ReturnToWorld;
+        //BattleManager.OnBattleFlee += ReturnToWorld;
+        TransitionManager.OnWipeFinished += ReturnToWorld;
     }
 
     private void ReturnToWorld(object sender, System.EventArgs e)
@@ -32,6 +33,8 @@ public class WorldManager : MonoBehaviour
     private void OnDestroy()
     {
         BattleInitiate.OnBattleInitiate -= StopWorld;
-        BattleManager.OnBattleFlee -= ReturnToWorld;
+        //BattleManager.OnBattleFlee -= ReturnToWorld;
+        TransitionManager.OnWipeFinished -= ReturnToWorld;
+
     }
 }

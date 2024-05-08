@@ -36,6 +36,7 @@ public class TransitionManager : MonoBehaviour
 
     public static event EventHandler OnEnableScreen;
     public static event EventHandler OnDisableScreen;
+    public static event EventHandler OnWipeFinished;
 
     private void Start()
     {
@@ -174,6 +175,8 @@ public class TransitionManager : MonoBehaviour
 
         CanvasComponent.sortingOrder = BaseSortingLayer;
 
+        //Sets world time to 1
+        OnWipeFinished?.Invoke(this, EventArgs.Empty);
         yield return null;
     }
     #endregion
