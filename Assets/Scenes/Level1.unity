@@ -788,7 +788,7 @@ Transform:
   m_GameObject: {fileID: 101177275}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.098540306, y: 1.3655229, z: -10}
+  m_LocalPosition: {x: -1.4911733, y: 1.3655229, z: -10}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -1322,14 +1322,14 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1684211527511594608, guid: 7732f0cb27b72ed4e85edc16159c65fe, type: 3}
       propertyPath: _thisItem.Description
-      value: 'The professor dropped my latest assignment, saying that I copied someone
-        else but it was Jasmine who copied from me. She didn''t even bother changing
-        anything to make it seem original. Dumb ignorant blond who keeps stealing
-        my bag and tries to rip my clothes off in public. I''ve tried to inform the
-        teachers and security guards but they don''t do anything since apparently
-        her mother is a major donor to the college. This is absurd. She is abusing
-        her privileges. Oh what am I to do when nobody stands up for me or at least
-        tries to support me. '
+      value: "Roger\u2019s Diary 3: \u201CHAHAHA, I hit him. I hit him back. I hit
+        that prick Jacob back for all the abuse he has inflicted on me. He deserved
+        it and I happily gave it. But I don't feel so good. Was there something wrong
+        with that beer I had? I feel so heavy. I don't feel good. I know i'm going
+        to get in trouble for fighting back this time around. The law never does
+        anything when I get hit but when I strike back, that is when they rear their
+        heads. What am I even living for? Everything has been a waste of time and
+        space\u2026.like me. "
       objectReference: {fileID: 0}
     - target: {fileID: 7954515955410158714, guid: 7732f0cb27b72ed4e85edc16159c65fe, type: 3}
       propertyPath: m_LocalPosition.x
@@ -1852,6 +1852,73 @@ PrefabInstance:
       insertIndex: -1
       addedObject: {fileID: 1715375221}
   m_SourcePrefab: {fileID: 100100000, guid: 16035e62dced52f4da6e07178fa31606, type: 3}
+--- !u!1001 &353334580
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 565561533689796247, guid: 7732f0cb27b72ed4e85edc16159c65fe, type: 3}
+      propertyPath: m_Name
+      value: NotePickup (3)
+      objectReference: {fileID: 0}
+    - target: {fileID: 1684211527511594608, guid: 7732f0cb27b72ed4e85edc16159c65fe, type: 3}
+      propertyPath: _thisItem.Description
+      value: "Roger\u2019s Diary 4:\u201D I am immensely thankful to Officer Johnson
+        for his help in catching me and stopping me from taking the last step before
+        my end. He did not outright treat me like a hoodlum or drunkard. He understood
+        that I was defending myself from an abuser and had provided me contact to
+        a few organizations that could help me officially even when my school or
+        local people don't. I feel all tingly, it's as if I can enjoy the wind blowing
+        against me now without thinking it is against me like everyone else. "
+      objectReference: {fileID: 0}
+    - target: {fileID: 7954515955410158714, guid: 7732f0cb27b72ed4e85edc16159c65fe, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 123.73
+      objectReference: {fileID: 0}
+    - target: {fileID: 7954515955410158714, guid: 7732f0cb27b72ed4e85edc16159c65fe, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 7.45
+      objectReference: {fileID: 0}
+    - target: {fileID: 7954515955410158714, guid: 7732f0cb27b72ed4e85edc16159c65fe, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7954515955410158714, guid: 7732f0cb27b72ed4e85edc16159c65fe, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7954515955410158714, guid: 7732f0cb27b72ed4e85edc16159c65fe, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7954515955410158714, guid: 7732f0cb27b72ed4e85edc16159c65fe, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7954515955410158714, guid: 7732f0cb27b72ed4e85edc16159c65fe, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7954515955410158714, guid: 7732f0cb27b72ed4e85edc16159c65fe, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7954515955410158714, guid: 7732f0cb27b72ed4e85edc16159c65fe, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7954515955410158714, guid: 7732f0cb27b72ed4e85edc16159c65fe, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 7732f0cb27b72ed4e85edc16159c65fe, type: 3}
 --- !u!4 &361036187 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 3022868234691336746, guid: 8b89257f947a58f42a5c78c0d6198589, type: 3}
@@ -3820,7 +3887,7 @@ Camera:
   far clip plane: 1000
   field of view: 60
   orthographic: 1
-  orthographic size: 5.14
+  orthographic size: 6.1
   m_Depth: -1
   m_CullingMask:
     serializedVersion: 2
@@ -3845,7 +3912,7 @@ Transform:
   m_GameObject: {fileID: 847796021}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -8.98, y: -3.0600002, z: -25.362011}
+  m_LocalPosition: {x: -12.9349785, y: -4.5581493, z: -3.4058218}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -8191,3 +8258,4 @@ SceneRoots:
   - {fileID: 1726503697}
   - {fileID: 239446274}
   - {fileID: 253749527}
+  - {fileID: 353334580}

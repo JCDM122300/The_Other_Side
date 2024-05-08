@@ -614,6 +614,73 @@ Transform:
   - {fileID: 217162270}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1001 &104489383
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 565561533689796247, guid: 7732f0cb27b72ed4e85edc16159c65fe, type: 3}
+      propertyPath: m_Name
+      value: NotePickup (4)
+      objectReference: {fileID: 0}
+    - target: {fileID: 1684211527511594608, guid: 7732f0cb27b72ed4e85edc16159c65fe, type: 3}
+      propertyPath: _thisItem.Description
+      value: "Michelle\u2019s Diary 2: \u201CSo we finally got in contact with the
+        dorm staff for a meeting but as expected Vivian simply talked on and on again
+        until she got nothing more than a slap on the wrist. Then when we finally
+        got home again, she started berating each and every one of us. Does she just
+        not get that she is the issue? One of my roommates, Stephanie, seems to have
+        snapped because of Vivian\u2019s constant shouting and outright told her
+        that she is a Bitch and to shut the hell up. "
+      objectReference: {fileID: 0}
+    - target: {fileID: 7954515955410158714, guid: 7732f0cb27b72ed4e85edc16159c65fe, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 137.85
+      objectReference: {fileID: 0}
+    - target: {fileID: 7954515955410158714, guid: 7732f0cb27b72ed4e85edc16159c65fe, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: -2.61
+      objectReference: {fileID: 0}
+    - target: {fileID: 7954515955410158714, guid: 7732f0cb27b72ed4e85edc16159c65fe, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7954515955410158714, guid: 7732f0cb27b72ed4e85edc16159c65fe, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7954515955410158714, guid: 7732f0cb27b72ed4e85edc16159c65fe, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7954515955410158714, guid: 7732f0cb27b72ed4e85edc16159c65fe, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7954515955410158714, guid: 7732f0cb27b72ed4e85edc16159c65fe, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7954515955410158714, guid: 7732f0cb27b72ed4e85edc16159c65fe, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7954515955410158714, guid: 7732f0cb27b72ed4e85edc16159c65fe, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7954515955410158714, guid: 7732f0cb27b72ed4e85edc16159c65fe, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 7732f0cb27b72ed4e85edc16159c65fe, type: 3}
 --- !u!1001 &113084583
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -3519,6 +3586,75 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 3022868234691336746, guid: 8b89257f947a58f42a5c78c0d6198589, type: 3}
   m_PrefabInstance: {fileID: 428080291}
   m_PrefabAsset: {fileID: 0}
+--- !u!1001 &436550789
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 565561533689796247, guid: 7732f0cb27b72ed4e85edc16159c65fe, type: 3}
+      propertyPath: m_Name
+      value: NotePickup (3)
+      objectReference: {fileID: 0}
+    - target: {fileID: 1684211527511594608, guid: 7732f0cb27b72ed4e85edc16159c65fe, type: 3}
+      propertyPath: _thisItem.Description
+      value: "Michelle\u2019s Diary 1: \u201CI can't stand Vivian. She is the worst
+        roommate ever. Me and the others left to visit our families during summer
+        break and we came back to all of our stuff moved with her own replacing ours.
+        Like this is a shared space, we all have our designated spots that we agreed
+        on. Yet she is being so haughty as if she didn't do anything wrong. We move
+        our stuff back and then she called us out on it even though she started this
+        first. I want to tell the dorm deans but they are never available and last
+        time we made a case against her bad behavior, she just chatted on and on
+        until nothing happened. I hate her so much. At least I'm not alone in this "
+      objectReference: {fileID: 0}
+    - target: {fileID: 7954515955410158714, guid: 7732f0cb27b72ed4e85edc16159c65fe, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 112.18
+      objectReference: {fileID: 0}
+    - target: {fileID: 7954515955410158714, guid: 7732f0cb27b72ed4e85edc16159c65fe, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 9.2
+      objectReference: {fileID: 0}
+    - target: {fileID: 7954515955410158714, guid: 7732f0cb27b72ed4e85edc16159c65fe, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7954515955410158714, guid: 7732f0cb27b72ed4e85edc16159c65fe, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7954515955410158714, guid: 7732f0cb27b72ed4e85edc16159c65fe, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7954515955410158714, guid: 7732f0cb27b72ed4e85edc16159c65fe, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7954515955410158714, guid: 7732f0cb27b72ed4e85edc16159c65fe, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7954515955410158714, guid: 7732f0cb27b72ed4e85edc16159c65fe, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7954515955410158714, guid: 7732f0cb27b72ed4e85edc16159c65fe, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7954515955410158714, guid: 7732f0cb27b72ed4e85edc16159c65fe, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 7732f0cb27b72ed4e85edc16159c65fe, type: 3}
 --- !u!1001 &461890323
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -6336,24 +6472,24 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1684211527511594608, guid: 7732f0cb27b72ed4e85edc16159c65fe, type: 3}
       propertyPath: _thisItem.Description
-      value: "Holy gods I cant believe what just happened. It seems someone else
-        had some sort of drug abuse problem which was later revealed to be caused
-        by a teacher or dean or something. A bunch of police investigations were
-        done and it seems the school\u2019s financial department was also looked
-        at and they found that all the \u2018donations\u2019 that Jasmine's parents
-        were doing never were put through but the money was truly gone. So her family
-        and various members of the school are now being investigated for fraud. Jasmine
-        herself has become much more meek as if to not gather any attention but I
-        can tell all the teachers are eyeing her for the smallest little thing to
-        get her kicked out. I have never been so liberated before. "
+      value: " Amina\u2019s Diary 2: \u201CI can believe this is happening. Some
+        of the photos that were taken for the yearly school gala of me had been photoshopped,
+        putting me into strange costumes or doing horrendous things. The school approached
+        me about this but they at least knew that it wasn't me who put them up all
+        over. I think it's Jasmine's boyfriend, Daniel. I know he is good with computers,
+        He has always been giving me creepy looks. I don't see what Jasmine sees
+        in him but if he did do this, then the one who put all the posters up would
+        have likely been Jasmine herself. Which means there is no hope for me as
+        her parents will just give another donation to the school to sweep this under
+        the rug. I hate this school\u201D "
       objectReference: {fileID: 0}
     - target: {fileID: 7954515955410158714, guid: 7732f0cb27b72ed4e85edc16159c65fe, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 86.59
+      value: 51.39
       objectReference: {fileID: 0}
     - target: {fileID: 7954515955410158714, guid: 7732f0cb27b72ed4e85edc16159c65fe, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -1.83
+      value: -0.12
       objectReference: {fileID: 0}
     - target: {fileID: 7954515955410158714, guid: 7732f0cb27b72ed4e85edc16159c65fe, type: 3}
       propertyPath: m_LocalPosition.z
@@ -8383,16 +8519,14 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1684211527511594608, guid: 7732f0cb27b72ed4e85edc16159c65fe, type: 3}
       propertyPath: _thisItem.Description
-      value: I can believe this is happening. Some of the photos that were taken
-        for the yearly school gala of me had been photoshopped, putting me into strange
-        costumes or doing horrendous things. The school approached me about this
-        but they at least knew that it wasn't me who put them up all over. I think
-        it's Jasmine's boyfriend, Daniel. I know he is good with computers, He has
-        always been giving me creepy looks. I don't see what Jasmine sees in him
-        but if he did do this, then the one who put all the posters up would have
-        likely been Jasmine herself. Which means there is no hope for me as her parents
-        will just give another donation to the school to sweep this under the rug.
-        I hate this school
+      value: " Amina\u2019s Diary 1: \u201CThe professor dropped my latest assignment,
+        saying that I copied someone else but it was Jasmine who copied from me.
+        She didn't even bother changing anything to make it seem original. Dumb ignorant
+        blond who keeps stealing my bag and tries to rip my clothes off in public.
+        I've tried to inform the teachers and security guards but they don't do anything
+        since apparently her mother is a major donor to the college. This is absurd.
+        She is abusing her privileges. Oh what am I to do when nobody stands up for
+        me or at least tries to support me.  "
       objectReference: {fileID: 0}
     - target: {fileID: 7954515955410158714, guid: 7732f0cb27b72ed4e85edc16159c65fe, type: 3}
       propertyPath: m_LocalPosition.x
@@ -10203,6 +10337,76 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 1591299741680398729, guid: 16035e62dced52f4da6e07178fa31606, type: 3}
   m_PrefabInstance: {fileID: 1469313884}
   m_PrefabAsset: {fileID: 0}
+--- !u!1001 &1473483578
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 565561533689796247, guid: 7732f0cb27b72ed4e85edc16159c65fe, type: 3}
+      propertyPath: m_Name
+      value: NotePickup (2)
+      objectReference: {fileID: 0}
+    - target: {fileID: 1684211527511594608, guid: 7732f0cb27b72ed4e85edc16159c65fe, type: 3}
+      propertyPath: _thisItem.Description
+      value: "Holy gods I cant believe what just happened. It seems someone else
+        had some sort of drug abuse problem which was later revealed to be caused
+        by a teacher or dean or something. A bunch of police investigations were
+        done and it seems the school\u2019s financial department was also looked
+        at and they found that all the \u2018donations\u2019 that Jasmine's parents
+        were doing never were put through but the money was truly gone. So her family
+        and various members of the school are now being investigated for fraud. Jasmine
+        herself has become much more meek as if to not gather any attention but I
+        can tell all the teachers are eyeing her for the smallest little thing to
+        get her kicked out. I have never been so liberated before. "
+      objectReference: {fileID: 0}
+    - target: {fileID: 7954515955410158714, guid: 7732f0cb27b72ed4e85edc16159c65fe, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 81.78
+      objectReference: {fileID: 0}
+    - target: {fileID: 7954515955410158714, guid: 7732f0cb27b72ed4e85edc16159c65fe, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 4.92
+      objectReference: {fileID: 0}
+    - target: {fileID: 7954515955410158714, guid: 7732f0cb27b72ed4e85edc16159c65fe, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7954515955410158714, guid: 7732f0cb27b72ed4e85edc16159c65fe, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7954515955410158714, guid: 7732f0cb27b72ed4e85edc16159c65fe, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7954515955410158714, guid: 7732f0cb27b72ed4e85edc16159c65fe, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7954515955410158714, guid: 7732f0cb27b72ed4e85edc16159c65fe, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7954515955410158714, guid: 7732f0cb27b72ed4e85edc16159c65fe, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7954515955410158714, guid: 7732f0cb27b72ed4e85edc16159c65fe, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7954515955410158714, guid: 7732f0cb27b72ed4e85edc16159c65fe, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 7732f0cb27b72ed4e85edc16159c65fe, type: 3}
 --- !u!1001 &1476673129
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -10688,6 +10892,78 @@ PrefabInstance:
       insertIndex: -1
       addedObject: {fileID: 289479033}
   m_SourcePrefab: {fileID: 100100000, guid: 16035e62dced52f4da6e07178fa31606, type: 3}
+--- !u!1001 &1500791651
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 565561533689796247, guid: 7732f0cb27b72ed4e85edc16159c65fe, type: 3}
+      propertyPath: m_Name
+      value: NotePickup (6)
+      objectReference: {fileID: 0}
+    - target: {fileID: 1684211527511594608, guid: 7732f0cb27b72ed4e85edc16159c65fe, type: 3}
+      propertyPath: _thisItem.Description
+      value: "Michelle\u2019s Diary 4: \u201Coh Thank god. Eh, maybe I shouldn't
+        be thanking god for this but Vivian got into a car accident just after being
+        brought down with Stephanie. Seems she went to the local coffee shop to rehydrate
+        when she got into a screaming match with a slightly reckless driver who went
+        fully reckless and decided to hit her because she would not cross the road
+        like she should have. Vivian forgot that Human flesh is no match for steel
+        engineering. Maybe I should change my major. I'm feeling very inspired by
+        the automotive industry now. "
+      objectReference: {fileID: 0}
+    - target: {fileID: 1714535546451524798, guid: 7732f0cb27b72ed4e85edc16159c65fe, type: 3}
+      propertyPath: m_SortingOrder
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7954515955410158714, guid: 7732f0cb27b72ed4e85edc16159c65fe, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 354.77
+      objectReference: {fileID: 0}
+    - target: {fileID: 7954515955410158714, guid: 7732f0cb27b72ed4e85edc16159c65fe, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 16.93
+      objectReference: {fileID: 0}
+    - target: {fileID: 7954515955410158714, guid: 7732f0cb27b72ed4e85edc16159c65fe, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7954515955410158714, guid: 7732f0cb27b72ed4e85edc16159c65fe, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7954515955410158714, guid: 7732f0cb27b72ed4e85edc16159c65fe, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7954515955410158714, guid: 7732f0cb27b72ed4e85edc16159c65fe, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7954515955410158714, guid: 7732f0cb27b72ed4e85edc16159c65fe, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7954515955410158714, guid: 7732f0cb27b72ed4e85edc16159c65fe, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7954515955410158714, guid: 7732f0cb27b72ed4e85edc16159c65fe, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7954515955410158714, guid: 7732f0cb27b72ed4e85edc16159c65fe, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 7732f0cb27b72ed4e85edc16159c65fe, type: 3}
 --- !u!1 &1506616659 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 4698066064180900864, guid: 16035e62dced52f4da6e07178fa31606, type: 3}
@@ -14310,15 +14586,14 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1684211527511594608, guid: 7732f0cb27b72ed4e85edc16159c65fe, type: 3}
       propertyPath: _thisItem.Description
-      value: I can't stand Vivian. She is the worst roommate ever. Me and the others
-        left to visit our families during summer break and we came back to all of
-        our stuff moved with her own replacing ours. Like this is a shared space,
-        we all have our designated spots that we agreed on. Yet she is being so haughty
-        as if she didn't do anything wrong. We moved our stuff back and then she
-        called us out on it even though she started this first. I want to tell the
-        dorm deans but they are never available and last time we made a case against
-        her bad behavior, she just chatted on and on until nothing happened. I hate
-        her so much. At least I'm not alone in this
+      value: "Michelle\u2019s Diary 3: \u201CThe shouting match caused the dorm security
+        to come knocking by. Vivian begins to start ranting to them about how Stephanie
+        was the problem and the situation escalated with Stephanie almost hitting
+        Vivian if not for security. Both were taken away to get down to the situation
+        but since steph chose to get violent first, they are likely to release Vivian
+        with no trouble again. I really don't want to deal with her anymore. I have
+        already blocked her in the group chat but there is nothing I can do about
+        her personally. "
       objectReference: {fileID: 0}
     - target: {fileID: 1714535546451524798, guid: 7732f0cb27b72ed4e85edc16159c65fe, type: 3}
       propertyPath: m_SortingOrder
@@ -14326,11 +14601,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7954515955410158714, guid: 7732f0cb27b72ed4e85edc16159c65fe, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 416.0034
+      value: 253.68
       objectReference: {fileID: 0}
     - target: {fileID: 7954515955410158714, guid: 7732f0cb27b72ed4e85edc16159c65fe, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 8.314445
+      value: 9.68
       objectReference: {fileID: 0}
     - target: {fileID: 7954515955410158714, guid: 7732f0cb27b72ed4e85edc16159c65fe, type: 3}
       propertyPath: m_LocalPosition.z
@@ -15232,4 +15507,8 @@ SceneRoots:
   - {fileID: 131823299}
   - {fileID: 1259409691}
   - {fileID: 894693512}
+  - {fileID: 1473483578}
+  - {fileID: 436550789}
+  - {fileID: 104489383}
   - {fileID: 2001358293}
+  - {fileID: 1500791651}
