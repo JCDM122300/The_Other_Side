@@ -40,5 +40,6 @@ public class ScreenActivate : MonoBehaviour
     private void OnDestroy()
     {
         TransitionManager.OnEnableScreen -= OnTranstitionFinsiedEnter;
+        TransitionManager.OnDisableScreen -= OnTransitionFinsihedFlee;
     }
 }

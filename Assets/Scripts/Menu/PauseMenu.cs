@@ -52,6 +52,9 @@ public class PauseMenu : MonoBehaviour
         //Hardcoded and can be refined
         Time.timeScale = 1f;
         SceneManager.LoadScene("MainMenu");
+
+        GameObject p = GameObject.Find("PersistentComponents");
+        Destroy(p);
     
     }
 

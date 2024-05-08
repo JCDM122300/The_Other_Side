@@ -43,6 +43,8 @@ public class BattleMenu : MonoBehaviour
         //creature = creatureObject.GetComponent<Creature>();
 
         //PopulateScreen();
+        BattleInitiate.OnEnemyInitiate += BattleInitiate_OnEnemyInitiate;
+
     }
     private void BattleInitiate_OnEnemyInitiate(object sender, (Creature, Sprite) e)
     {
@@ -76,10 +78,17 @@ public class BattleMenu : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        PlayerHealthText.text = ($"{player.HP}/{player.MaxHP}");
-        PlayerHealthSlider.value = player.HP;
+        if(PlayerHealthText != null)
+        {
+            PlayerHealthText.text = ($"{player.HP}/{player.MaxHP}");
 
-        EnemyHealthSlider.value = creature.HP;
+        }
+
+        if(PlayerHealthSlider != null)
+            PlayerHealthSlider.value = player.HP;
+
+        if(EnemyHealthSlider!= null)
+            EnemyHealthSlider.value = creature.HP;
     }
 
     double Damage;
@@ -115,16 +124,8 @@ public class BattleMenu : MonoBehaviour
     {
         BM.FleeBattle();
     }
-
-    private void OnEnable()
+    private void OnDestroy()
     {
-        BattleInitiate.OnEnemyInitiate += BattleInitiate_OnEnemyInitiate;
-    }
-
-    
-
-    private void OnDisable()
-    {
-        
+        BattleInitiate.OnEnemyInitiate -= BattleInitiate_OnEnemyInitiate;
     }
 }
