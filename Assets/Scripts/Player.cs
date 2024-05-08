@@ -42,72 +42,9 @@ public class Player : Character
     [SerializeField] int MaxDEFScore = 15;
     private void Awake()
     {
-        /*
-        //grab references from gameobject 
-        rb = GetComponent<Rigidbody2D>(); 
-        boxCollider = GetComponent<BoxCollider2D>();
-        rb.constraints = RigidbodyConstraints2D.FreezeRotation;
-        //prevents player from falling over and rotating when they jump 
-        anim = GetComponent<Animator>();
-        */
-    }
-    /*
-    private void FixedUpdate()
-    {
-        IsGrounded = Physics2D.OverlapCircle(groundCheck.position,checkRadius, groundLayer);
-        float horizontalInput = Input.GetAxis("Horizontal");
-        //player walking left/right
-        rb.velocity = new Vector2(horizontalInput * speed,rb.velocity.y);
         
-        //flips player left/right
-      if (horizontalInput> 0.01f)
-        { 
-            //checks if player moves right
-        transform.localScale = Vector3.one; 
-        
-        }
-        else if (horizontalInput < -0.01f)
-        {
-            //checks if player moves left
-            transform.localScale = new Vector3(-1,1,1);
-
-        }
-
-        //Player jump
-        if (Input.GetKey(KeyCode.Space) && IsGrounded == true)
-        {
-            Jump(); 
-        }
-
-        //set run anim parameters 
-        anim.SetBool("Run", horizontalInput !=0);
-
-        //adjust jump height in case 
-        //if (Input.GetKey(KeyCode.Space) && rb.velocity.y > 0)
-        //{
-         //rb.velocity = new Vector2(rb.velocity.x,rb.velocity.y / 2);
-        //}
     }
-    */
-    //old method to check if player is grounded 
-
-    //private bool IsGrounded()
-    //{
-        //RaycastHit2D raycastHit = Physics2D.BoxCast(boxCollider.bounds.center,boxCollider.bounds.size,0,Vector2.down,0.1f,groundLayer);
-       // return raycastHit.collider !=null; 
-    //}
-
-    /*
-    private void Jump()
-    {
-        jumpPower = Mathf.Sqrt(MaxJumpHeight * Physics2D.gravity.y * -2);
-        //controls jump speed
-        rb.velocity = new Vector2(rb.velocity.x, jumpPower);
-     
-        
-       
-    }
-    */
+    
     void Start()
     {
         this.Level = StartingLevel;
