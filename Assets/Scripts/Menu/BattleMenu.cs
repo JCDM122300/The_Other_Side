@@ -78,13 +78,23 @@ public class BattleMenu : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if(PlayerHealthText != null)
+        if (PlayerHealthText != null)
         {
             PlayerHealthText.text = ($"{player.HP}/{player.MaxHP}");
 
         }
 
-        if(PlayerHealthSlider != null)
+        if(player.HP<= 0)
+        {
+            BattleText.text = "You have lost this battle, but it wont be your last";
+        }
+
+        if (creature.HP <= 0)
+        {
+            BattleText.text = "You have won this battle, you will win more!";
+        }
+
+        if (PlayerHealthSlider != null)
             PlayerHealthSlider.value = player.HP;
 
         if(EnemyHealthSlider!= null)
@@ -108,11 +118,46 @@ public class BattleMenu : MonoBehaviour
         BattleEffectsManager.Instance().CharacterShake(PlayerSpriteBox.gameObject, 15, 0.8f, 3,LockMovement.RIGHT);
         Debug.Log($"Damage: {Damage}");
 
+        BackButton();
         BattleEffectsManager.Instance().CharcterFlash(CreatureSpriteBox.gameObject, 0.8f);
         creature.HP -= (int)Damage;
         Debug.Log($"Enemies health is now: {creature.HP}");
 
         BattleText.text = ($"{player.Name} Damaged the {creature.Name} for {Damage} points");
+
+        // Check if the creature is defeated
+        if (creature.HP <= 0)
+        {
+            Debug.Log($"The {creature.Name} has been defeated!");
+            return;
+        }
+
+        EnemyAttack();
+    }
+
+    public void EnemyAttack()
+    {
+        // Enemy attacks the player
+        double enemyDamage = BM.Fight(creature, player);
+
+        // Update UI to reflect enemy's attack
+        // Implement this part according to how you want to update the UI for enemy's attack
+
+        // Reduce player's health based on enemy's attack
+        player.HP -= (int)enemyDamage;
+
+        // Update UI text
+        // Implement this part according to how you want to update the UI for player's health
+
+        Debug.Log($"The {creature.Name} attacked the player for {enemyDamage} HP.");
+    }
+
+    void SwitchPanelsWithDelay(GameObject PanelToClose, GameObject PanelToOpen, float delay)
+    {
+
+        // Close the FightPanel and open the BattlePanel
+        PanelToClose.SetActive(false);
+        PanelToOpen.SetActive(true);
     }
 
     public void ItemButton()

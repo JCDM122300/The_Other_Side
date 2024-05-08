@@ -125,6 +125,11 @@ public class BattleManager : MonoBehaviour
         return P.Attack(P.ATKScore, C.DEFScore);
     }
 
+    public double Fight(Creature C, Player P)
+    {
+        Debug.Log("Attack is called:");
+        return C.Attack(C.ATKScore, P.DEFScore);
+    }
 
     //public bool Won, BattleOver, Paused;
     //public void CheckBattleState()
